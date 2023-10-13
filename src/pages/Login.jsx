@@ -20,7 +20,8 @@ function Login() {
   <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
 </svg> */}
                 </div>
-                <button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300'>Login</button>
+               
+               <Link to='/home'><button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300 w-full'>Login</button></Link>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>
