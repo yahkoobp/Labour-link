@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import {Routes ,Route} from 'react-router-dom';
 import Home from "./pages/Home";
+import BottomTab from "./components/BottomTab";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/home" element={<Home/>}/>
 
       </Routes>
+      {/* <BottomTab/> */}
     {/* <Login/> */}
     {/* <Landing/> */}
     {/* <Navbar/> */}

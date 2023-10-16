@@ -7,6 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.scroll-down header {
+  transform: translate3d(0,-100%,0);
+}
+.scroll-down footer {
+  transform: translate3d(0,-100%,0);
+}
+
+.scroll-up header {
+  
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
