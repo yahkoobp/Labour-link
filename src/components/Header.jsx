@@ -1,12 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
+ 
   return (
     <div>
          <nav className='w-full shadow-lg flex items-center justify-between p-2 bg-gray-50 rounded-bl-lg rounded-br-lg'>
-          <div className='rounded-full w-[45px] h-[45px]'>
+          <Link to='/profile'>
+          <div className='rounded-full w-[45px] h-[45px] cursor-pointer'>
             <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
           </div>
+          </Link>
           <div className='flex items-center justify-center'>
             <div className='relative'>
           {/* <svg className="absolute top-1/2 left-0 translate-x-1/2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
