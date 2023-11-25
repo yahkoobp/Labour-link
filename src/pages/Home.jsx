@@ -1,8 +1,11 @@
 import React from 'react'
 import Header from '../components/Header'
 import BottomTab from '../components/BottomTab'
+import { useUserAuthContext } from '../context/userAuthContext'
 
 function Home() {
+  const {user , logout} = useUserAuthContext()
+  console.log(user)
    const body=document.body
    console.log(body.classList)
    let lastScroll = 0

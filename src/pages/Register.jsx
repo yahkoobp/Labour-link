@@ -1,21 +1,52 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import { useUserAuthContext } from '../context/userAuthContext'
+import { Navigate } from 'react-router-dom'
 
 
 function Register() {
+  const [email , setEmail] = useState("")
+  const [password , setPassword] = useState("")
+  const [confirmPass , setConfirmPass] = useState("")
+  const [error , setError] = useState("")
+  const [loading , setLoading] = useState(false)
+  const {signUp} = useUserAuthContext()
+  const navigate = useNavigate()
+  const handleSubmit = async (e)=>{
+
+    e.preventDefault()
+    setError("")
+    try {
+      setLoading(true)
+      await signUp(email,password)
+      setLoading(false)
+      navigate("/profile-form")
+    } catch (error) {
+      setError(error.message)
+      setLoading(false)
+    }
+  }
   return (
     <div>
    <div className="flex flex-col items-center justify-center w-full flex-1 px-1 text-center h-screen bg-gray-100">
         <div className='bg-white flex flex-col rounded-md shadow-lg lg:shadow-lg max-w-2xl '>
            <div className='w-full p-5 lg:px-16'>
               <h2 className='font-bold text-2xl text-[#002D74] text-left my-1'>Register</h2>
+              {error && <span className='text-red-700 text-sm'>{error}</span>}
               <form className='flex flex-col gap-4' action="">
-                <input className='p-2 mt-6 bg-gray-100 focus:outline-none rounded-md' type="text" name="email" id="" placeholder='First name'/>
-                <input className='p-2 rounded-md bg-gray-100 focus:outline-none' type="text" name="email" id="" placeholder='Last name'/>
-                <input className='p-2 rounded-md bg-gray-100 focus:outline-none' type="email" name="email" id="" placeholder='Email'/>
-                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='password' />
-                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='confirm password' />
-                <button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300'>Sign up</button>
+                <input className='p-2 rounded-md bg-gray-100 focus:outline-none mt-10' type="email" name="email" id="" placeholder='Email'
+                onChange={(e)=>{
+                   setEmail(e.target.value)
+                }}/>
+                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='password' 
+                 onChange={(e)=>{
+                  setPassword(e.target.value)
+                  
+               }}/>
+                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='confirm password' 
+                onChange={(e)=>{setConfirmPass(e.target.value)}}/>
+                {confirmPass === password &&confirmPass!="" ? <span className='font-sm text-green-500'>Password matched</span> : <span className='font-sm text-red-600'>Password not matched</span>}
+                <button onClick={handleSubmit} className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300'>{loading ? 'Loading...' : 'Signup'}</button>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>

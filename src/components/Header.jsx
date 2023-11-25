@@ -1,14 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { doc ,getDoc } from 'firebase/firestore'
+import { db } from '../firebaseConfig'
+import { useUserAuthContext } from '../context/userAuthContext'
 
 const Header = () => {
- 
+  const {user} = useUserAuthContext()
+  const[userDetails , setUserDetails] = useState({})
+  useEffect(()=>{
+
+    const fetchData = async()=>{
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      setUserDetails(docSnap.data())
+      console.log(userDetails)
+      // console.log("Document data:", docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }}
+    fetchData()
+  },[])
   return (
     <div>
          <nav className='w-full shadow-lg flex items-center justify-between p-2 bg-gray-50 rounded-bl-lg rounded-br-lg'>
           <Link to='/profile'>
-          <div className='rounded-full w-[45px] h-[45px] cursor-pointer'>
+          <div className='rounded-full w-[45px] h-[45px] cursor-pointer flex gap-5'>
             <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
+            {/* <h2>{userDetails.firstname}</h2> */}
           </div>
           </Link>
           <div className='flex items-center justify-center'>
@@ -25,10 +46,8 @@ const Header = () => {
 </svg>
 <div className='rounded-full w-[17px] h-[17px] bg-green-700 absolute bottom-4 text-center text-white text-bold text-[12px]'>7</div>
 </div>
-
         </nav>
     </div>
   )
 }
-
 export default Header

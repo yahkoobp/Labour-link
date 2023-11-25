@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
+import { useUserAuthContext } from '../context/userAuthContext'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Login() {
+  const [email , setEmail] = useState("")
+  const [password , setPassword] = useState("")
+  const [error , setError] = useState("")
+  const {login} = useUserAuthContext()
+  const [loading , setLoading] = useState(false)
+  const navigate = useNavigate()
+  const handleSubmit = async (e)=>{
+
+    e.preventDefault()
+    setError("")
+    try {
+      setLoading(true)
+      await login(email,password)
+      setLoading(false)
+      navigate("/home")
+    } catch (error) {
+      setError(error.message)
+      setLoading(false)
+    }
+
+  }
+
   return (
     <div>
     <div className="flex flex-col items-center justify-center w-full flex-1 px-1 text-center h-screen bg-gray-100">
@@ -11,17 +35,24 @@ function Login() {
            <div className='w-full p-5 lg:px-16'>
               <h2 className='font-bold text-2xl text-[#002D74] text-left my-3'>Login</h2>
               <p className='text-sm my-3 text-[#002D74] text-left'>If you are already a user please login</p>
+              {error && <span className='text-red-700 text-sm'>{error}</span>}
               <form className='flex flex-col gap-4' action="">
-                <input className='p-2 mt-6  rounded-md bg-gray-100 focus:outline-none' type="email" name="email" id="" placeholder='Enter your email'/>
+                <input className='p-2 mt-6  rounded-md bg-gray-100 focus:outline-none' type="email" name="email" id="" placeholder='Enter your email'
+                onChange={(e)=>{
+                  setEmail(e.target.value)
+                }}/>
                 <div className='relative '>
-                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='Enter your password' />
+                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='Enter your password' 
+                onChange={(e)=>{
+                  setPassword(e.target.value)
+                }}/>
                 {/* <svg className='absolute top-1/3 right-3 translate-x-1/2' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-eye-fill" viewBox="0 0 16 16">
   <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
   <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
 </svg> */}
                 </div>
                
-               <Link to='/home'><button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300 w-full'>Login</button></Link>
+               <Link to=''><button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300 w-full' onClick={handleSubmit}>{loading?"Loading...":"Login"}</button></Link>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>

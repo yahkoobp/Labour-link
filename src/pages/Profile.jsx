@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import ProfileModel from '../components/ProfileModel'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
     const [modelVisible , setModelVisible] = useState(false)
@@ -10,12 +11,17 @@ const Profile = () => {
     const hideModel =()=>{
         setModelVisible(false)
     }
+
+    const navigate = useNavigate()
+
+    const goBack =()=>{
+        navigate(-1)
+    }
   return (
-    <>
     <div className='h-screen'>
 <div className='shadow-md'>
         <div className='w-full h-[70px] bg-[#002D74] relative'>
-            <div className='ml-3 cursor-pointer'>
+            <div onClick={goBack} className='ml-3 cursor-pointer inline'>
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 </svg>
@@ -62,32 +68,37 @@ const Profile = () => {
 </svg>
 </div>
  </div>
-<div className='font-semibold text-md px-6 py-2'>
+<div className='text-sm px-6 py-2'>
 <p> Household electrical works</p>
 <p>Location : Perinthalmanna</p>
 <p>Sep-2023 - oct-2023</p>
 <button className='bg-[#002D74] px-6 text-white py-2 mt-4 rounded-full cursor-pointer hover:bg-blue-900'>View details</button>
 </div>
 
-<div className='font-semibold text-md px-5 py-3'>
+<div className='text-sm px-5 py-3'>
 <p> Household plumbing works</p>
 <p>Location : Perinthalmanna</p>
 <p>Sep-2023 - oct-2023</p>
 <button className='bg-[#002D74] px-6 text-white py-2 mt-4 rounded-full cursor-pointer hover:bg-blue-900'>View details</button>
 </div>
+
+<div className='text-sm px-5 py-3'>
+<p> Household plumbing works</p>
+<p>Location : Perinthalmanna</p>
+<p>Sep-2023 - oct-2023</p>
+<button className='bg-[#002D74] px-6 text-white py-2 mt-4 rounded-full cursor-pointer hover:bg-blue-900'>View details</button>
+</div>
+
+
     </div>
-    {modelVisible &&
-    <div onClick={hideModel} className='absolute bottom-0 top-0 w-full h-screen transition ease-in-out duration-500'>
-        <div className='p-3 h-[100px] absolute bottom-0 bg-white w-full text-center rounded-tl-lg rounded-tr-lg shadow-2xl border-2 border-gray'>
+    {/* {modelVisible &&
+    <div onClick={hideModel} className='absolute bottom-0 top-0 w-full h-screen '>
+        <div className='p-3 h-[100px] absolute bottom-0 bg-white w-full text-center rounded-tl-lg rounded-tr-lg shadow-2xl border-2 border-gray transition ease-in-out duration-500'>
             <p className='font-bold absolute bottom-0'>Change profile photo</p>
             </div>
+    </div> */}
+{/* } */}
     </div>
-}
-    </div>
-
-    
-
-    </>
   )
 }
 
