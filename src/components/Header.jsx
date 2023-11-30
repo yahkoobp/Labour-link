@@ -10,7 +10,7 @@ const Header = () => {
   useEffect(()=>{
 
     const fetchData = async()=>{
-    const docRef = doc(db, "users", user.uid);
+    const docRef = doc(db, "labours", user.uid);
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {

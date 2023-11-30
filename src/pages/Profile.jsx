@@ -27,7 +27,6 @@ const Profile = () => {
     useEffect(()=>{
       const updateData = async(img)=>{
         try {
-
           const res = await setDoc(doc(db ,"users",user.uid),{
              ...userDetails,
              image :img

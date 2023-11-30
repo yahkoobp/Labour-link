@@ -25,7 +25,7 @@ function Home() {
     }
 
     fetchData()
-  },[user])
+  },[])
   console.log(users)
   //  const body=document.body
   //  console.log(body.classList)
