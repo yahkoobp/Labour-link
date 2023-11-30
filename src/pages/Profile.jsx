@@ -110,7 +110,7 @@ const Profile = () => {
           console.log("No such document!");
         }}
         fetchData()
-    },[user ,file])
+    },[file])
   return (
     <div className='h-screen relative'>
 <div className='shadow-md'>

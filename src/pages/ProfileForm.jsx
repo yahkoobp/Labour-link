@@ -60,7 +60,7 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='inputBox'>
-                <input type="text" name="email" required />
+                <input type="text" name="email" value={user.email} required />
                 <span>Email Id</span>
                 </div>
 
