@@ -52,7 +52,7 @@ function Home() {
   //  } )
   return (
     <div className=''>
-        <div className='fixed z-50 top-0 w-full'>
+        <div className='sticky z-50 top-0 w-full'>
         <Header/>
         </div>
         {
@@ -65,7 +65,7 @@ function Home() {
           </div>
           <div>
             <h2 className='font-semibold text-md'>{user.firstname}</h2>
-            <p className='text-sm'>{user.bio}</p>
+            <p className='text-sm max-w-[150px]'>{user.bio}</p>
           </div>
           </div>
           <Link to={`/userProfile/${user.id}`}>

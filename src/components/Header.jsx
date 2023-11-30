@@ -28,7 +28,7 @@ const Header = () => {
          <nav className='w-full shadow-lg flex items-center justify-between p-2 bg-gray-50 rounded-bl-lg rounded-br-lg'>
           <Link to='/profile'>
           <div className='rounded-full w-[45px] h-[45px] cursor-pointer flex gap-5'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
+          <img src={userDetails.image?userDetails.image :"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8"} className='w-full h-full rounded-full object-cover'/>
             {/* <h2>{userDetails.firstname}</h2> */}
           </div>
           </Link>
