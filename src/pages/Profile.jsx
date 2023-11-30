@@ -9,10 +9,20 @@ import {ref ,uploadBytesResumable ,getDownloadURL } from 'firebase/storage'
 
 
 const Profile = () => {
-    const {user} = useUserAuthContext()
+    const {user ,logout} = useUserAuthContext()
     const [userDetails , setUserDetails] = useState({})
     const [modelVisible , setModelVisible] = useState(false)
     const [file , setFile] = useState("")
+    const navigate = useNavigate()
+
+    const handleLogOut = async()=>{
+       try {
+          logout()
+          navigate("/")
+       } catch (error) {
+        
+       }
+    }
 
     useEffect(()=>{
       const updateData = async(img)=>{
@@ -22,6 +32,15 @@ const Profile = () => {
              ...userDetails,
              image :img
           })
+          await setDoc(doc(db ,"labours",user.uid),{
+            ...userDetails,
+            image :img
+         })
+
+      //    await setDoc(doc(db ,"others",user.uid),{
+      //     ...userDetails,
+      //     image :img
+      //  })
   
         } catch (error) {
           console.log(error)
@@ -72,8 +91,6 @@ const Profile = () => {
     const hideModel =()=>{
         setModelVisible(false)
     }
-
-    const navigate = useNavigate()
 
     const goBack =()=>{
         navigate(-1)
@@ -145,6 +162,9 @@ const Profile = () => {
              </div>
         </div>
         </div> */}
+        <div className='p-4'>
+        <button onClick={handleLogOut} className='font-semibold text-md bg-[#002D74] text-white p-2 rounded-md'>LogOut</button>
+        </div>
     </div>
   )
 }
