@@ -14,7 +14,7 @@ function Home() {
     const fetchData = async()=>{
       let list = []
       try {
-        const querySnapShot = await getDocs(collection(db , "labours"));
+        const querySnapShot = await getDocs(collection(db , "users"));
         querySnapShot.forEach((doc)=>{
           list.push({id: doc.id ,...doc.data()})
         })
@@ -27,34 +27,9 @@ function Home() {
     fetchData()
   },[user])
   console.log(users)
-  //  const body=document.body
-  //  console.log(body.classList)
-  //  let lastScroll = 0
-  //  window.addEventListener('scroll',()=>{
-  //   console.log(window.scrollY)
-  //   const currentScroll = window.scrollY
-  //   if(currentScroll <=0){
-  //       body.classList.remove("scroll-up")
-  //   }
-
-  //   if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
-  //       body.classList.remove("scroll-up")
-  //       body.classList.add("scroll-down")
-
-  //   }
-
-  //   if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
-  //       body.classList.remove("scroll-down")
-  //       body.classList.add("scroll-up")
-
-  //   }
-  //   lastScroll = currentScroll
-  //  } )
+ 
   return (
     <div className=''>
-        <div className='sticky z-50 top-0 w-full'>
-        <Header/>
-        </div>
         {
           users.map((user)=>(
              

@@ -20,7 +20,7 @@ function Register() {
       setLoading(true)
       await signUp(email,password)
       setLoading(false)
-      navigate("/profile-form")
+      navigate("/laborclient")
     } catch (error) {
       setError(error.message)
       setLoading(false)

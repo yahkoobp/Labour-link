@@ -5,7 +5,7 @@ import {doc,serverTimestamp,setDoc} from "firebase/firestore"
 import { db } from '../firebaseConfig'
 import { useUserAuthContext } from '../context/userAuthContext'
 
-const ProfileForm = () => {
+const OthersForm = () => {
     // const [data , setData] = useState({})
     const {user} = useUserAuthContext()
     const navigate = useNavigate()
@@ -17,14 +17,14 @@ const ProfileForm = () => {
       try {
         const res = await setDoc(doc(db ,"users",user.uid),{
             ...finalData,
-            isLabour:true,
+            isLabour:false,
             timeStamp : serverTimestamp()
         })
 
-        await setDoc(doc(db ,"labours",user.uid),{
-          ...finalData,
-          timeStamp : serverTimestamp()
-      })  
+            await setDoc(doc(db ,"others",user.uid),{
+            ...finalData,
+            timeStamp : serverTimestamp()
+        })
         navigate("/home")
 
       } catch (error) {
@@ -49,12 +49,6 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='inputBox'>
-                <input type="text" name="bio" required 
-                />
-                <span>Bio</span>
-                </div>
-
-                <div className='inputBox'>
                 <input type="number" name="phonenumber" required />
                 <span>Phone Number</span>
                 </div>
@@ -72,24 +66,7 @@ const ProfileForm = () => {
                     <option>Pulamanthole</option>
                     <option>Kulathore</option>
                 </select>
-                </div>
-
-                <div className='inputBox'>
-                <input type="text" name="address" required 
-                />
-                <span>Address</span>
-                </div>
-
-                <div className='inputBox'>
-                <input type="text" name="pincode" required />
-                <span>Pin Code</span>
-                </div>
-
-                <div className='inputBox'>
-                <input type="text" name="district" required />
-                <span>District</span>
-                </div>
-               
+                </div>         
                 <div className=' w-full h-[50px] bg-gray-50 flex items-center justify-end p-6 border-t-2'>
              <button type="submit"className='bg-[#002D74] rounded-md py-2 px-3 text-white hover:scale-102 duration-300 text-center cursor-pointer'>Sumbit</button>
         </div>
@@ -101,4 +78,4 @@ const ProfileForm = () => {
   )
 }
 
-export default ProfileForm
+export default OthersForm
