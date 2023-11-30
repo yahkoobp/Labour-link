@@ -58,6 +58,7 @@ color: gray;
     color:#002D74;
     transform: translateY(-9px);
     font-size: 0.9em;
+    font-weight: bold;
     padding: 0 10px;
     
 }
@@ -68,5 +69,7 @@ color: gray;
     transform: translateY(-9px);
     font-size: 0.9em;
     padding: 0 10px;
+    color:#002D74;
+    font-weight: bold;
     
 }

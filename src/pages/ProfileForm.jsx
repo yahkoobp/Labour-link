@@ -43,6 +43,12 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='inputBox'>
+                <input type="text" name="bio" required 
+                />
+                <span>Bio</span>
+                </div>
+
+                <div className='inputBox'>
                 <input type="number" name="phonenumber" required />
                 <span>Phone Number</span>
                 </div>
@@ -63,6 +69,12 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='inputBox'>
+                <input type="text" name="address" required 
+                />
+                <span>Address</span>
+                </div>
+
+                <div className='inputBox'>
                 <input type="text" name="pincode" required />
                 <span>Pin Code</span>
                 </div>
@@ -71,8 +83,9 @@ const ProfileForm = () => {
                 <input type="text" name="district" required />
                 <span>District</span>
                 </div>
-                <div className='fixed bottom-0 left-0 w-full h-[50px] bg-gray-50 flex items-center justify-end p-5 border-t-2'>
-             <button type="submit"className='bg-[#002D74] rounded-md py-1 px-3 text-white hover:scale-102 duration-300 text-center cursor-pointer'>Sumbit</button>
+               
+                <div className=' w-full h-[50px] bg-gray-50 flex items-center justify-end p-6 border-t-2'>
+             <button type="submit"className='bg-[#002D74] rounded-md py-2 px-3 text-white hover:scale-102 duration-300 text-center cursor-pointer'>Sumbit</button>
         </div>
             </form>
         </div>

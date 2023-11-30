@@ -1,168 +1,81 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import BottomTab from '../components/BottomTab'
 import { useUserAuthContext } from '../context/userAuthContext'
+import { collection , getDocs } from 'firebase/firestore'
+import { db } from '../firebaseConfig'
+import { Link } from 'react-router-dom'
 
 function Home() {
   const {user , logout} = useUserAuthContext()
-  console.log(user)
-   const body=document.body
-   console.log(body.classList)
-   let lastScroll = 0
-   window.addEventListener('scroll',()=>{
-    console.log(window.scrollY)
-    const currentScroll = window.scrollY
-    if(currentScroll <=0){
-        body.classList.remove("scroll-up")
+  const [users , setUsers] = useState([])
+
+  useEffect(()=>{
+    const fetchData = async()=>{
+      let list = []
+      try {
+        const querySnapShot = await getDocs(collection(db , "users"));
+        querySnapShot.forEach((doc)=>{
+          list.push({id: doc.id ,...doc.data()})
+        })
+        setUsers(list)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
-        body.classList.remove("scroll-up")
-        body.classList.add("scroll-down")
+    fetchData()
+  },[user])
+  console.log(users)
+  //  const body=document.body
+  //  console.log(body.classList)
+  //  let lastScroll = 0
+  //  window.addEventListener('scroll',()=>{
+  //   console.log(window.scrollY)
+  //   const currentScroll = window.scrollY
+  //   if(currentScroll <=0){
+  //       body.classList.remove("scroll-up")
+  //   }
 
-    }
+  //   if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
+  //       body.classList.remove("scroll-up")
+  //       body.classList.add("scroll-down")
 
-    if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
-        body.classList.remove("scroll-down")
-        body.classList.add("scroll-up")
+  //   }
 
-    }
-    lastScroll = currentScroll
-   } )
+  //   if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
+  //       body.classList.remove("scroll-down")
+  //       body.classList.add("scroll-up")
+
+  //   }
+  //   lastScroll = currentScroll
+  //  } )
   return (
-    <div className='h-screen'>
-        <header className='fixed top-0 left-0 z-50 w-full transition-all ease-in-out duration-500'>
+    <div className=''>
+        <div className='fixed z-50 top-0 w-full'>
         <Header/>
-        </header>
-        <div className='flex w-full shadow-md p-5 items-center justify-between gap-10 mt-[50px]'>
+        </div>
+        {
+          users.map((user)=>(
+             
+        <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
           <div className='flex items-center justify-center gap-9'>
         <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
+        <img src={user.image?user.image :"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8"} className='w-full h-full rounded-full object-cover'/>
           </div>
           <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
+            <h2 className='font-semibold text-md'>{user.firstname}</h2>
+            <p className='text-sm'>{user.bio}</p>
           </div>
           </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
+          <Link to={`/userProfile/${user.id}`}>
+          <button className='px-4 py-2 bg-[#2f5ca9] shadow-lg font-bold text-white rounded-sm border-none hover:bg-[#5784d3]'>View</button>
+          </Link>
           </div>
+          ))
+}
 
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
-
-          <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
-          <div className='flex items-center justify-center gap-9'>
-        <div className='rounded-full w-[40px] h-[40px]'>
-            <img src="https://images.pexels.com/photos/8090137/pexels-photo-8090137.jpeg?auto=compress&cs=tinysrgb&w=600" className='w-full h-full rounded-full object-cover'/>
-          </div>
-          <div>
-            <h2 className='font-bold text-md'>Yahkoob</h2>
-            <p className='font-md'>Carpenter</p>
-          </div>
-          </div>
-          <button className='px-6 py-2 bg-green-700 shadow-lg font-bold text-white rounded-full border-none hover:bg-green-500'>View</button>
-          </div>
+         
          <div className='fixed top-0 left-0 z-50 w-full transition-all ease-in-out duration-300'>
           <BottomTab/>
           </div>

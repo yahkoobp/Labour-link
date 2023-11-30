@@ -45,7 +45,7 @@ function Register() {
                }}/>
                 <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='confirm password' 
                 onChange={(e)=>{setConfirmPass(e.target.value)}}/>
-                {confirmPass === password &&confirmPass!="" ? <span className='font-sm text-green-500'>Password matched</span> : <span className='font-sm text-red-600'>Password not matched</span>}
+                {confirmPass === password &&confirmPass!="" ? <span className='text-sm text-green-500'>Password matched</span> : confirmPass!="" &&<span className='text-sm text-red-600'>Password not matched</span>}
                 <button onClick={handleSubmit} className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300'>{loading ? 'Loading...' : 'Signup'}</button>
               </form>
 

@@ -10,6 +10,7 @@ import Splash from "./pages/Splash";
 import { UserAuthContextProvider } from "./context/userAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfileForm from "./pages/ProfileForm";
+import UserViewProfile from "./pages/UserViewProfile";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
         <Route path="/profile-form" element={<ProtectedRoute><ProfileForm/></ProtectedRoute>}/> 
+        <Route path="/userProfile/:uid" element={<ProtectedRoute><UserViewProfile/></ProtectedRoute>}/> 
       </Routes>
       </UserAuthContextProvider>
       {/* <Splash/> */}
