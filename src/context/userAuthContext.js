@@ -7,6 +7,7 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider ({children}){
   const[user ,setUser ] = useState(JSON.parse(localStorage.getItem("user")))
+  
       function signUp(email , password) {
         return createUserWithEmailAndPassword(auth,email , password)
       }

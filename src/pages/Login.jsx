@@ -35,7 +35,7 @@ function Login() {
            <div className='w-full'>
               <h2 className='font-semibold text-2xl text-gray-900 text-center my-4'>Log in</h2>
               {error && <span className='text-red-700 text-sm'>{error}</span>}
-              <form className='flex flex-col gap-6 mt-8' action="">
+              <form className='flex flex-col gap-6 mt-8' action="" onSubmit={handleSubmit}>
               <div className='flex flex-col gap-2'>
                   <label className='font-semibold' htmlFor="email">Enter your email</label>
                 <input className='py-2 px-4 rounded-md bg-gray-100 focus:outline-none focus:border focus:border-gray-200' type="email" name="email" id="" placeholder='Email' required
@@ -52,7 +52,7 @@ function Login() {
                }}/>
                </div>
                
-               <Link to=''><button className='bg-gray-900 rounded-full text-white py-2 hover:scale-105 duration-300 w-full' onClick={handleSubmit}>{loading?"Loading...":"Login"}</button></Link>
+               <button type='submit' className='bg-gray-900 rounded-full text-white py-2 hover:scale-105 duration-300 w-full'>{loading?"Loging...":"Login"}</button>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>

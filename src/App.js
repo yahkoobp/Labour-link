@@ -36,6 +36,7 @@ function App() {
         <Route path="/admin-login" element={<Admin_Login/>}/>
         <Route path="/admin-home" element={<Admin_home/>}/>
       </Routes>
+      {/* <ProfileForm/> */}
       </AdminAuthContextProvider>
       </UserAuthContextProvider>
       {/* <Splash/> */}
@@ -43,7 +44,7 @@ function App() {
     {/* <Login/> */}
     {/* <Landing/> */}
     {/* <Navbar/> */}
-    {/* <ProfileForm/> */}
+    
      
     </div>
   );

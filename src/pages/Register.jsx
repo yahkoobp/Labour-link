@@ -33,7 +33,7 @@ function Register() {
            <div className='w-full'>
               <h2 className='font-semibold text-2xl text-gray-900 text-center my-4'>Create an Account</h2>
               {error && <span className='text-red-700 text-sm'>{error}</span>}
-              <form className='flex flex-col gap-6 mt-8' action="">
+              <form className='flex flex-col gap-6 mt-8' action="" onSubmit={handleSubmit}>
                 <div className='flex flex-col gap-2'>
                   <label className='font-semibold' htmlFor="email">Enter your email</label>
                 <input className='py-2 px-4 rounded-md bg-gray-100 focus:outline-none focus:border focus:border-gray-200' type="email" name="email" id="" placeholder='Email' required
@@ -55,12 +55,12 @@ function Register() {
                 onChange={(e)=>{setConfirmPass(e.target.value)}}/>
                 {confirmPass === password &&confirmPass!="" ? <span className='text-sm text-green-500'>Password matched</span> : confirmPass!="" &&<span className='text-sm text-red-600'>Password not matched</span>}
                 </div>
-                <button onClick={handleSubmit} className='bg-gray-900 rounded-full text-white py-2 hover:scale-105 duration-300'>{loading ? 'Loading...' : 'Sign up'}</button>
+                <button type="submit"  className='bg-gray-900 rounded-full text-white py-2 hover:scale-105 duration-300'>{loading ? 'Signing Up...' : 'Sign up'}</button>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>
                 <hr className='border-gray-400'/>
-                <p className="text-center text-[12px]">or continue with</p>
+                <p className="text-center text-[12px]">continue with</p>
                 <hr className='border-gray-400'/>
               </div>
               <div className='flex gap-4 items-center justify-center mt-6'>
