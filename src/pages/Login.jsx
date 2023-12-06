@@ -30,42 +30,50 @@ function Login() {
 
   return (
     <div>
-    <div className="flex flex-col items-center justify-center w-full flex-1 px-1 text-center h-screen bg-gray-100">
-        <div className='bg-white flex flex-col rounded-md shadow-lg lg:shadow-lg max-w-2xl '>
-           <div className='w-full p-5 lg:px-16'>
-              <h2 className='font-bold text-2xl text-[#002D74] text-left my-3'>Login</h2>
-              <p className='text-sm my-3 text-[#002D74] text-left'>If you are already a user please login</p>
+    <div className="flex flex-col items-center w-full px-1 mt-1 h-screen">
+        <div className='py-2'>
+           <div className='w-full'>
+              <h2 className='font-semibold text-2xl text-gray-900 text-center my-4'>Log in</h2>
               {error && <span className='text-red-700 text-sm'>{error}</span>}
-              <form className='flex flex-col gap-4' action="">
-                <input className='p-2 mt-6  rounded-md bg-gray-100 focus:outline-none' type="email" name="email" id="" placeholder='Enter your email'
+              <form className='flex flex-col gap-6 mt-8' action="">
+              <div className='flex flex-col gap-2'>
+                  <label className='font-semibold' htmlFor="email">Enter your email</label>
+                <input className='py-2 px-4 rounded-md bg-gray-100 focus:outline-none focus:border focus:border-gray-200' type="email" name="email" id="" placeholder='Email' required
                 onChange={(e)=>{
-                  setEmail(e.target.value)
+                   setEmail(e.target.value)
                 }}/>
-                <div className='relative '>
-                <input  className='p-2 rounded-md w-full bg-gray-100 focus:outline-none'type="password" name="password" id="" placeholder='Enter your password' 
-                onChange={(e)=>{
-                  setPassword(e.target.value)
-                }}/>
-                {/* <svg className='absolute top-1/3 right-3 translate-x-1/2' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-eye-fill" viewBox="0 0 16 16">
-  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-</svg> */}
                 </div>
+                <div className='flex flex-col gap-2'>
+                <label className='font-semibold' htmlFor="email">Password</label>
+                <input  className='py-2 px-4 rounded-md w-full bg-gray-100 focus:outline-none focus:border focus:border-gray-200'type="password" name="password" id="" placeholder='password' required
+                 onChange={(e)=>{
+                  setPassword(e.target.value)
+                  
+               }}/>
+               </div>
                
-               <Link to=''><button className='bg-[#002D74] rounded-md text-white py-2 hover:scale-105 duration-300 w-full' onClick={handleSubmit}>{loading?"Loading...":"Login"}</button></Link>
+               <Link to=''><button className='bg-gray-900 rounded-full text-white py-2 hover:scale-105 duration-300 w-full' onClick={handleSubmit}>{loading?"Loading...":"Login"}</button></Link>
               </form>
 
               <div className='mt-10 text-gray-500 grid grid-cols-3 items-center'>
                 <hr className='border-gray-400'/>
-                <p className="text-center">OR</p>
+                <p className="text-center text-[12px]">continue with</p>
                 <hr className='border-gray-400'/>
               </div>
-              <button className='bg-white border py-2 w-full rounded-md mt-5 flex justify-center items-center gap-3 hover:scale-105 duration-300'>
-              <svg className='mt-3 text-sm' xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
-  <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+
+             <div className='flex gap-4 items-center justify-center mt-6'>
+         <div className=' bg-gray-100 px-12 py-2 rounded-full'>
+         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
+<path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 </svg>
-                Login with google</button>
-                <div className='mt-5 text-xs border-b py-4 border-gray-300'>Forgot your password?</div>
+         </div>
+         <div className='bg-gray-100 px-12 py-2 rounded-full'>
+         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
+<linearGradient id="Ld6sqrtcxMyckEl6xeDdMa_uLWV5A9vXIPu_gr1" x1="9.993" x2="40.615" y1="9.993" y2="40.615" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2aa4f4"></stop><stop offset="1" stop-color="#007ad9"></stop></linearGradient><path fill="url(#Ld6sqrtcxMyckEl6xeDdMa_uLWV5A9vXIPu_gr1)" d="M24,4C12.954,4,4,12.954,4,24s8.954,20,20,20s20-8.954,20-20S35.046,4,24,4z"></path><path fill="#fff" d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"></path>
+</svg>
+         </div> 
+      </div>
+                <div className='mt-5 text-xs border-b py-4 border-gray-300 font-semibold'>Forgot your password?</div>
            <div className='text-sm flex gap-2 justify-between items-center mt-3'>
             <p>If you dont have an account  </p>
             <Link to='/register'><button className='py-2 px-5 bg-white border rounded-md hover:scale-105 duration-300 hover:bg-[#002D74] hover:text-white '>Register</button></Link>
