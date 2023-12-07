@@ -6,13 +6,16 @@ import { collection , getDocs } from 'firebase/firestore'
 import { db } from '../firebaseConfig'
 import { Link } from 'react-router-dom'
 import { BottomNavigation , BottomNavigationAction } from '@mui/material'
+import SkeletonLoader from '../components/SkeletonLoader'
 
 
 function Home() {
   const {user , logout} = useUserAuthContext()
   const [users , setUsers] = useState([])
+  const [loading , setLoading] = useState(false)
 
   useEffect(()=>{
+    setLoading(true)
     const fetchData = async()=>{
       let list = []
       try {
@@ -21,6 +24,7 @@ function Home() {
           list.push({id: doc.id ,...doc.data()})
         })
         setUsers(list)
+        setLoading(false)
       } catch (error) {
         console.log(error)
       }
@@ -58,8 +62,8 @@ function Home() {
         <Header/>
         </div>
         {
-          users.map((user)=>(
-             
+          loading?<SkeletonLoader/> :
+        users.map((user)=>(
         <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
           <div className='flex items-center justify-center gap-9'>
         <div className='rounded-full w-[40px] h-[40px]'>

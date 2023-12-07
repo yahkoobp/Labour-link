@@ -17,15 +17,18 @@ import { AdminAuthContextProvider } from "./context/adminAuthContext";
 import LabOrClient from "./pages/LabOrClient";
 import OthersForm from "./pages/OthersForm";
 import Jobs from "./pages/Jobs";
+import SkeletonLoader from "./components/SkeletonLoader";
+
 
 
 function App() {
+  const user = JSON.parse(localStorage.getItem("user"))
   return (
     <div className="App">
       <UserAuthContextProvider>
         <AdminAuthContextProvider>
       <Routes>
-        <Route path="/" element={<Landing/>}></Route>
+        <Route path="/" element={user?<Home/>:<Landing/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}/>
         <Route path="/profile" element={<Profile/>}/>
@@ -38,6 +41,7 @@ function App() {
         <Route path="/admin-login" element={<Admin_Login/>}/>
         <Route path="/admin-home" element={<Admin_home/>}/>
       </Routes>
+      {/* <SkeletonLoader/> */}
       </AdminAuthContextProvider>
       </UserAuthContextProvider>
      
