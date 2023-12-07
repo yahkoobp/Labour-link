@@ -25,7 +25,7 @@ const Header = () => {
   },[])
   return (
     <div className='relative'>
-         <nav className='w-full shadow-lg flex items-center justify-between p-2 bg-gray-50 rounded-bl-lg rounded-br-lg'>
+         <nav className='w-full flex items-center justify-between p-2 bg-[#f0f8ff] '>
           <Link to='/profile'>
           <div className='rounded-full w-[45px] h-[45px] cursor-pointer flex gap-5'>
           <img src={userDetails.image?userDetails.image :"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8"} className='w-full h-full rounded-full object-cover'/>

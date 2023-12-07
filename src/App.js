@@ -16,6 +16,7 @@ import Admin_home from "./Admin/Admin_home";
 import { AdminAuthContextProvider } from "./context/adminAuthContext";
 import LabOrClient from "./pages/LabOrClient";
 import OthersForm from "./pages/OthersForm";
+import Jobs from "./pages/Jobs";
 
 
 function App() {
@@ -32,18 +33,14 @@ function App() {
         <Route path="/profile-form" element={<ProtectedRoute><ProfileForm/></ProtectedRoute>}/>
         <Route path="/others-form" element={<ProtectedRoute><OthersForm/></ProtectedRoute>}/> 
         <Route path="/userProfile/:uid" element={<ProtectedRoute><UserViewProfile/></ProtectedRoute>}/>
+        <Route path="/jobs" element={<ProtectedRoute><Jobs/></ProtectedRoute>}/>
         <Route path="/laborclient" element={<LabOrClient/>}/>
         <Route path="/admin-login" element={<Admin_Login/>}/>
         <Route path="/admin-home" element={<Admin_home/>}/>
       </Routes>
-      {/* <ProfileForm/> */}
       </AdminAuthContextProvider>
       </UserAuthContextProvider>
-      {/* <Splash/> */}
-      {/* <BottomTab/> */}
-    {/* <Login/> */}
-    {/* <Landing/> */}
-    {/* <Navbar/> */}
+     
     
      
     </div>

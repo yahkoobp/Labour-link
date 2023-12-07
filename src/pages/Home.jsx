@@ -5,6 +5,8 @@ import { useUserAuthContext } from '../context/userAuthContext'
 import { collection , getDocs } from 'firebase/firestore'
 import { db } from '../firebaseConfig'
 import { Link } from 'react-router-dom'
+import { BottomNavigation , BottomNavigationAction } from '@mui/material'
+
 
 function Home() {
   const {user , logout} = useUserAuthContext()
@@ -74,10 +76,8 @@ function Home() {
           </div>
           ))
 }
-
-         
-         <div className='fixed top-0 left-0 z-50 w-full transition-all ease-in-out duration-300'>
-          <BottomTab/>
+          <div className='w-full fixed bottom-0 left-0'>
+          <BottomTab value={0}/>
           </div>
 
           

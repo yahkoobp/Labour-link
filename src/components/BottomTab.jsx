@@ -1,39 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaUser } from "react-icons/fa6";
 import { FaBriefcase } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import PersonIcon from '@mui/icons-material/Person'
+import HomeRepairServiceRoundedIcon from '@mui/icons-material/HomeRepairServiceRounded';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-const BottomTab = () => {
+
+const BottomTab = (props) => {
+
+  // const [value , setValue] = useState(0)
+  const value = props.value
+  const navigate = useNavigate()
+  const handleChange = (e,value)=>{
+     
+      if(value ===0){
+         navigate("/home")
+      }
+      else if(value===1){
+        navigate("/jobs")
+      }
+      else if(value === 3){
+        navigate("/profile")
+      }
+  }
   return (
-    <div>
-            <footer>
-                <nav className='w-full h-[50px] fixed left-0 bg-white border border-gray-100 bottom-0 z-50  flex items-center justify-between p-6 '>
-
-   <div className='flex flex-col items-center justify-center'>
-   <AiFillHome style={{fontSize:"20px"}}/>
-   <span className='text-sm'>Profile</span>
-   </div>
-
-   <div className='flex flex-col items-center justify-center'>
-   <FaUser style={{fontSize:"20px"}}/>
-   <span className='text-sm'>Home</span>
-   </div>
-
-   <div className='flex flex-col items-center justify-center'>
-   <FaBriefcase style={{fontSize:"20px"}}/>
-   <span className='text-sm'>Jobs</span>
-   </div>
-
-   <div className='flex flex-col items-center justify-center'>
-   <FaUser style={{fontSize:"20px"}}/>
-   <span className='text-sm'>Home</span>
-   </div>
-                </nav>
-            </footer>
-        </div>
-  )
+  <BottomNavigation sx={{width:'100%' , position:"absolute" , bottom:0 , backgroundColor:"#f0f8ff"}} value={value} onChange={handleChange} showLabels>
+     <BottomNavigationAction label="Home" icon={<HomeRoundedIcon/>}/>
+     <BottomNavigationAction label="Jobs" icon={<HomeRepairServiceRoundedIcon/>}/>
+     <BottomNavigationAction label="Peoples" icon={<PeopleAltRoundedIcon/>}/>
+     <BottomNavigationAction label="My Profile" icon={<PersonIcon/>}/>
+  </BottomNavigation>
+   )
 }
-
 export default BottomTab
 
-//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
