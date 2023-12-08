@@ -5,7 +5,7 @@ const SkeletonLoader = () => {
   useEffect(()=>{
     const container = document.getElementById("container")
     const content = document.getElementById("content")
-    for(let i=0 ; i<5 ; i++){
+    for(let i=0 ; i<6 ; i++){
       let child = content?.cloneNode(true)
       container?.appendChild(child)
     }

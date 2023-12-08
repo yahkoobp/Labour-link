@@ -7,7 +7,9 @@ import { db } from '../firebaseConfig'
 import { Link } from 'react-router-dom'
 import { BottomNavigation , BottomNavigationAction } from '@mui/material'
 import SkeletonLoader from '../components/SkeletonLoader'
-
+import Fade from '@mui/material/Fade';
+import Grow from '@mui/material/Grow';
+import Zoom from '@mui/material/Zoom';
 
 function Home() {
   const {user , logout} = useUserAuthContext()
@@ -64,6 +66,7 @@ function Home() {
         {
           loading?<SkeletonLoader/> :
         users.map((user)=>(
+          <Fade in={true} timeout={2500}>
         <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
           <div className='flex items-center justify-center gap-9'>
         <div className='rounded-full w-[40px] h-[40px]'>
@@ -78,6 +81,7 @@ function Home() {
           <button className='px-4 py-2 bg-[#2f5ca9] shadow-lg font-bold text-white rounded-sm border-none hover:bg-[#5784d3]'>View</button>
           </Link>
           </div>
+          </Fade>
           ))
 }
           <div className='w-full fixed bottom-0 left-0'>
