@@ -14,7 +14,7 @@ function Landing() {
       <h1 className="text-3xl font-semibold">LabourLink</h1>
       </div>
       <p className='font-semibold font-lg'>Hello , Lets get start working together</p>
-      <NavLink to='/register'><button className=' bg-gray-900 px-14 py-2 rounded-full text-white font-bold relative top-5'>Sign Up with Email</button></NavLink>
+      <NavLink to='/register'><button className=' bg-gray-900 px-14 py-3 rounded-full text-white font-bold relative top-5'>Sign Up with Email</button></NavLink>
       </div>
 
       <div className='mt-6 text-gray-500 grid grid-cols-3 items-center justify-center p-6 gap-2'>

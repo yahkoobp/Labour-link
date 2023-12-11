@@ -13,14 +13,18 @@ const SkeletonLoader = () => {
 
   
   return (
-    <div id="container" className='flex flex-col'>
-      <div id="content" className='flex px-4 py-2 items-center gap-2'>
+    <div id="container" className='flex flex-col gap-2 mt-6'>
+      <div id="content" className='flex items-center'>
+        <div className='ml-4 mt-2'>
        <Skeleton variant='circular' width={50} height={50} animation="wave"/>
-       <div className='flex flex-col w-full'>
-       <Skeleton variant='text' height={50} animation="wave"/>
-       <Skeleton variant='text'  animation="wave"/>
        </div>
-       <Skeleton variant='rectangular' width={80} height={30} animation="wave" />
+       <div className='flex flex-col w-full ml-4'>
+       <Skeleton variant='text' height={30} animation="wave"/>
+       <Skeleton variant='text' height={10}  animation="wave"/>
+       </div>
+       <div className='px-4'>
+       <Skeleton variant='rectangular' width={60} height={30} animation="wave" />
+       </div>
        </div>
     </div>
   )

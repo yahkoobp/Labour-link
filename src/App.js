@@ -22,13 +22,13 @@ import SkeletonLoader from "./components/SkeletonLoader";
 
 
 function App() {
-  const user = JSON.parse(localStorage.getItem("user"))
+  // const user = JSON.parse(localStorage.getItem("user"))
   return (
     <div className="App">
       <UserAuthContextProvider>
         <AdminAuthContextProvider>
       <Routes>
-        <Route path="/" element={user?<Home/>:<Landing/>}></Route>
+        <Route path="/" element={<Landing/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}/>
         <Route path="/profile" element={<Profile/>}/>
