@@ -7,12 +7,15 @@ import { useUserAuthContext } from '../context/userAuthContext'
 import { TextField , MenuItem ,Autocomplete ,Checkbox ,} from '@mui/material'
 import { locations } from '../data'
 import { kerala_cities ,jobs } from '../data'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
 const ProfileForm = () => {
     // const [data , setData] = useState({})
     const {user} = useUserAuthContext()
+    const [loading ,setLoading] = useState(false)
     // let cities = []
     const [work_areas , setWorkAreas] = useState([])
     const navigate = useNavigate()
@@ -21,6 +24,7 @@ const ProfileForm = () => {
 
     const handleSubmit = async (e)=>{
       e.preventDefault()
+      setLoading(true)
       const data = new FormData(e.target)
       const finalData = Object.fromEntries(data.entries())
       console.log({...finalData ,work_areas:work_areas})
@@ -36,10 +40,12 @@ const ProfileForm = () => {
           ...finalData,
           work_areas:work_areas,
           timeStamp : serverTimestamp()
-      })  
+      }) 
+        setLoading(false)
         navigate("/home")
 
       } catch (error) {
+        setLoading(false)
         console.log(error)
       }
     }
@@ -137,7 +143,14 @@ const ProfileForm = () => {
             </form>
         </div>
 
-        
+        <div>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit"/>
+      </Backdrop>
+    </div>
     </div>
   )
 }

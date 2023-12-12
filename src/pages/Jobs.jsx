@@ -14,8 +14,8 @@ const Jobs = () => {
         <Header/>
         </div>
 
-          <div className=''>
-          <TabNav/>
+          <div className='sticky z-100 top-0'>
+          <TabNav />
           </div>
 
          <div className='w-full fixed bottom-0 left-0'>

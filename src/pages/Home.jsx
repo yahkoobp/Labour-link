@@ -78,7 +78,7 @@ function Home() {
           </div>
           </div>
           <Link to={`/userProfile/${user.id}`}>
-          <button className='px-4 py-2 bg-[#2f5ca9] shadow-lg font-bold text-white rounded-sm border-none hover:bg-[#5784d3]'>View</button>
+          <button className='px-4 py-2 bg-gray-900 shadow-lg font-bold text-white rounded-sm border-none hover:bg-gray-700'>View</button>
           </Link>
           </div>
           </Fade>

@@ -4,6 +4,7 @@ import { useUserAuthContext } from '../context/userAuthContext'
 import { Navigate } from 'react-router-dom'
 
 
+
 function Register() {
   const [email , setEmail] = useState("")
   const [password , setPassword] = useState("")
@@ -13,8 +14,8 @@ function Register() {
   const {signUp} = useUserAuthContext()
   const navigate = useNavigate()
   const handleSubmit = async (e)=>{
-
     e.preventDefault()
+  if(password === confirmPass){
     setError("")
     try {
       setLoading(true)
@@ -26,6 +27,9 @@ function Register() {
       setLoading(false)
     }
   }
+
+  setError("Please enter password correctly")
+}
   return (
     <div>
    <div className="flex flex-col items-center w-full px-1 mt-1 h-screen relative">
