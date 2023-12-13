@@ -63,11 +63,12 @@ function Home() {
         <div className='sticky z-50 top-0 w-full'>
         <Header/>
         </div>
+        <div className='flex flex-wrap gap-10'>
         {
-          loading?<SkeletonLoader/> :
+          loading? <SkeletonLoader/> :
         users.map((user)=>(
           <Fade in={true} timeout={2500}>
-        <div className='flex w-full shadow-md p-5 items-center justify-between gap-10'>
+        <div className='flex shadow-md p-5 items-center justify-between gap-10'>
           <div className='flex items-center justify-center gap-9'>
         <div className='rounded-full w-[40px] h-[40px]'>
         <img src={user.image?user.image :"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8"} className='w-full h-full rounded-full object-cover'/>
@@ -84,6 +85,7 @@ function Home() {
           </Fade>
           ))
 }
+</div>
           <div className='w-full fixed bottom-0 left-0'>
           <BottomTab value={0}/>
           </div>

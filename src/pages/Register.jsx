@@ -13,6 +13,7 @@ function Register() {
   const [loading , setLoading] = useState(false)
   const {signUp} = useUserAuthContext()
   const navigate = useNavigate()
+
   const handleSubmit = async (e)=>{
     e.preventDefault()
   if(password === confirmPass){
@@ -27,7 +28,6 @@ function Register() {
       setLoading(false)
     }
   }
-
   setError("Please enter password correctly")
 }
   return (

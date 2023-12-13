@@ -23,6 +23,9 @@ const BottomTab = (props) => {
       else if(value===1){
         navigate("/jobs")
       }
+      else if(value===2){
+        navigate("/peoples")
+      }
       else if(value === 3){
         navigate("/profile")
       }

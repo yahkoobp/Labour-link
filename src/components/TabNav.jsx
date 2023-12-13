@@ -50,12 +50,12 @@ import { Fade } from '@mui/material';
           </Box>
           </Fade>}
           <TabPanel value="1">
-          <div className=' relative'>
+          <div className=' sticky z-100 top-2'>
         <div className='flex flex-col items-start justify-center gap-3'>
-        <div className='w-full flex items-center justify-center sticky top-0'>
+        <div className='w-full flex items-center justify-center'>
         <Paper onChange={(e)=>setQuery(e.target.value)}
       component="form"
-      sx={{ p: '2px 1px', display: 'flex', alignItems: 'center', width: 400 ,boxShadow:5 , height:45,borderRadius:2 , marginTop:0}}
+      sx={{ p: '2px 1px', display: 'flex', alignItems: 'center', width: 400 ,boxShadow:5 , height:45,borderRadius:2 , marginTop:0 ,backgroundColor:"white"}}
     >
       <IconButton sx={{ p: '10px' }} aria-label="menu">
         <SearchIcon />
@@ -85,6 +85,8 @@ import { Fade } from '@mui/material';
        </ul>
        </div>
     </div>
+            <JobCard />
+            <JobCard />
             <JobCard />
           </TabPanel>
           <TabPanel value="2">Item Two</TabPanel>

@@ -9,12 +9,12 @@ import TabNav from '../components/TabNav';
 const Jobs = () => {
     const [value , setValue] = useState(0)
   return (
-    <div>
-         <div className='sticky z-50 top-0 w-full'>
+    <div className='relative'>
+         {/* <div className='sticky z-50 top-0 w-full'>
         <Header/>
-        </div>
+        </div> */}
 
-          <div className='sticky z-100 top-0'>
+          <div className=''>
           <TabNav />
           </div>
 
