@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import WorkIcon from '@mui/icons-material/Work';
 import PlaceIcon from '@mui/icons-material/Place';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
 
 
 const JobCard = () => {
@@ -32,10 +33,10 @@ const JobCard = () => {
                 <p className='font-bold text-[12px] text-green-900'>Active now</p>
             </div>
 
-            <div className='flex gap-2 mt-6'>
+           <Link to="/jobview/dsdsddsd"> <div className='flex gap-2 mt-6'>
               <VisibilityIcon/>
               <p className='font-semibold'>View</p>
-            </div>
+            </div></Link>
 
         </div>
     </div>

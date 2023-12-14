@@ -15,11 +15,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import { jobs } from '../data';
 import { Fade } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
  const TabNav = (props) => {
     const [value, setValue] = React.useState('1');
     const [visibleBox , setVisibleBox] = useState(true)
+    const navigate= useNavigate()
     
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -36,7 +38,7 @@ import { Fade } from '@mui/material';
     }
   
     return (
-      <div className=''>
+    
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={value} >
          {visibleBox &&
@@ -50,13 +52,13 @@ import { Fade } from '@mui/material';
           </Box>
           </Fade>}
           <TabPanel value="1">
-          <div className=' sticky z-100 top-2'>
-        <div className='flex flex-col items-start justify-center gap-3'>
+          <div className='sticky z-100 top-0 w-full ml-0'>
+        <div className=' py-4 shadow-sm bg-white w-full'>
         <div className='w-full flex items-center justify-center'>
-        <Paper onChange={(e)=>setQuery(e.target.value)}
+        <Paper  onChange={(e)=>setQuery(e.target.value)}
       component="form"
-      sx={{ p: '2px 1px', display: 'flex', alignItems: 'center', width: 400 ,boxShadow:5 , height:45,borderRadius:2 , marginTop:0 ,backgroundColor:"white"}}
-    >
+      sx={{ p: '2px 1px', display: 'flex', alignItems: 'center', width:400 ,boxShadow:1 , height:45,borderRadius:2 , marginTop:0 ,backgroundColor:"white"}}
+      >
       <IconButton sx={{ p: '10px' }} aria-label="menu">
         <SearchIcon />
       </IconButton>
@@ -71,9 +73,9 @@ import { Fade } from '@mui/material';
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
     </Paper>
     </div>
-    <ul className='ml-0'>
+    <ul className='ml-0 '>
         {query !== "" && jobs.filter((job=>job.toLowerCase().startsWith(query))).map((filteredItem)=>(
-            <div className='flex border-b border-b-gray-200 items-center justify-start w-full'>
+            <div className='flex border-b border-b-gray-200 items-center justify-start w-full bg-white'>
                 <SearchIcon sx={
                     {color:"gray"}
                 }/>
@@ -85,7 +87,7 @@ import { Fade } from '@mui/material';
        </ul>
        </div>
     </div>
-            <JobCard />
+            <JobCard/>
             <JobCard />
             <JobCard />
           </TabPanel>
@@ -93,7 +95,6 @@ import { Fade } from '@mui/material';
           <TabPanel value="3">Item Three</TabPanel>
         </TabContext>
       </Box>
-      </div>
     );
 }
 export default TabNav

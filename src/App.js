@@ -19,6 +19,7 @@ import OthersForm from "./pages/OthersForm";
 import Jobs from "./pages/Jobs";
 import SkeletonLoader from "./components/SkeletonLoader";
 import Peoples from "./pages/Peoples";
+import JobView from "./pages/JobView";
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/userProfile/:uid" element={<ProtectedRoute><UserViewProfile/></ProtectedRoute>}/>
         <Route path="/jobs" element={<ProtectedRoute><Jobs/></ProtectedRoute>}/>
         <Route path="/peoples" element={<ProtectedRoute><Peoples/></ProtectedRoute>}/>
+        <Route path="/jobview/:jid" element={<ProtectedRoute><JobView/></ProtectedRoute>}/>
         <Route path="/laborclient" element={<LabOrClient/>}/>
         <Route path="/admin-login" element={<Admin_Login/>}/>
         <Route path="/admin-home" element={<Admin_home/>}/>

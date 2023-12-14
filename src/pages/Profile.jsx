@@ -125,7 +125,7 @@ const Profile = () => {
 <div className='shadow-md'>
         <div className='w-full h-[70px] bg-gray-900'>
             <div onClick={goBack} className='ml-1 cursor-pointer inline'>
-        <KeyboardBackspaceIcon sx={{color:"white" , width:"50px" , height:"40px"}}/>
+        <KeyboardBackspaceIcon sx={{color:"white" , width:"30px" , height:"40px"}}/>
 </div>
               <div onClick={modelHandler} className='rounded-full w-[100px] h-[100px] absolute top-6 ml-6 border-4 border-white cursor-pointer'>
                 <input type='file' id="file" className='hidden' onChange={(e)=>{
@@ -157,7 +157,7 @@ const Profile = () => {
             <p>Pin :{userDetails.pincode}</p>
             <p>Mob :{userDetails.phonenumber}</p>
             </div>
-            <div className='text-bold bg-gray-900 h-[40px] w-[200px] rounded-full px-5 text-white flex items-center justify-center mt-4 mb-3'>Open to work</div>
+            <div className='text-bold bg-green-200 h-[30px] w-[150px] rounded-full px-4 py-2 text-white flex items-center justify-center mt-4 mb-3'><h2 className='text-green-800 font-semibold'>Open to work</h2></div>
         </div>
         </div>
 
