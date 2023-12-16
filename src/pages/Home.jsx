@@ -35,32 +35,33 @@ function Home() {
     fetchData()
   },[])
   console.log(users)
-  //  const body=document.body
-  //  console.log(body.classList)
-  //  let lastScroll = 0
-  //  window.addEventListener('scroll',()=>{
-  //   console.log(window.scrollY)
-  //   const currentScroll = window.scrollY
-  //   if(currentScroll <=0){
-  //       body.classList.remove("scroll-up")
-  //   }
+   const body=document.body
+   console.log(body.classList)
+   let lastScroll = 0
+   window.addEventListener('scroll',()=>{
+    console.log(window.scrollY)
+    const currentScroll = window.scrollY
+    if(currentScroll <=0){
+        body.classList.remove("scroll-up")
+    }
 
-  //   if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
-  //       body.classList.remove("scroll-up")
-  //       body.classList.add("scroll-down")
+    if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
+        body.classList.remove("scroll-up")
+        body.classList.add("scroll-down")
 
-  //   }
+    }
 
-  //   if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
-  //       body.classList.remove("scroll-down")
-  //       body.classList.add("scroll-up")
+    if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
+        body.classList.remove("scroll-down")
+        body.classList.add("scroll-up")
 
-  //   }
-  //   lastScroll = currentScroll
-  //  } )
+    }
+    lastScroll = currentScroll
+   } )
   return (
     <div className=''>
-        <div className='sticky z-50 top-0 w-full'>
+      Home
+        {/* <div className='sticky z-50 top-0 w-full'>
         <Header/>
         </div>
         <div className='flex flex-wrap gap-10'>
@@ -85,8 +86,9 @@ function Home() {
           </Fade>
           ))
 }
-</div>
-          <div className='w-full fixed bottom-0 left-0'>
+</div> */}
+
+<div className='w-full fixed bottom-0 left-0'>
           <BottomTab value={0}/>
           </div>
 

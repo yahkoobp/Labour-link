@@ -6,7 +6,7 @@ import { db } from '../firebaseConfig'
 import { useUserAuthContext } from '../context/userAuthContext'
 import { TextField , MenuItem ,Autocomplete ,Checkbox ,} from '@mui/material'
 import { locations } from '../data'
-import { kerala_cities ,jobs } from '../data'
+import { kerala_cities ,jobs ,kerala_places} from '../data'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -16,9 +16,12 @@ const ProfileForm = () => {
     // const [data , setData] = useState({})
     const {user} = useUserAuthContext()
     const [loading ,setLoading] = useState(false)
+    const [district , setDistrict] = useState("")
     // let cities = []
     const [work_areas , setWorkAreas] = useState([])
     const navigate = useNavigate()
+    const districts = Object.keys(kerala_places)
+    const default_option =["Please select a district"]
     // const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
     // const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -93,19 +96,27 @@ const ProfileForm = () => {
                 <span>Address</span>
                 </div>
 
-                <div className='inputBox'>
-                <input type="text" name="pincode" required />
-                <span>Pin Code</span>
+                <div className=''>
+                <Autocomplete
+                required
+                options={districts} renderInput={(params)=> <TextField required  {...params} label="Select district" name="district"></TextField>} 
+                onChange={(e , value)=>{
+                  setDistrict(e.target.outerText)
+                  // console.log(district)
+                  // console.log(kerala_places[district].places)
+                }}></Autocomplete>
                 </div>
 
                 <div className=''>
-                <Autocomplete 
-                options={kerala_cities} renderInput={(params)=> <TextField {...params} label="Select Location" name="location"></TextField>} 
+                <Autocomplete
+                required
+                options={kerala_places[district]?kerala_places[district]?.places:default_option} renderInput={(params)=> <TextField required {...params} label="Select city" name="city"></TextField>} 
                 ></Autocomplete>
                 </div>
 
                 <div className=''>
-                <Autocomplete 
+                <Autocomplete
+                required
                 width="full"
       multiple
       id="checkboxes-tags-demo"
@@ -115,6 +126,7 @@ const ProfileForm = () => {
       renderOption={(props, option, { selected }) => (
         <li name="work_areas" {...props}>
           <Checkbox
+            required
             style={{ marginRight: 8}}
             checked={selected}
           />

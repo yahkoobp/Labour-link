@@ -474,4 +474,49 @@ export const kerala_cities = [
     "Tea Garden Worker",
     "Tobacco Leaf Dryer",
   ]
+
+  export const kerala_places = {
+        "Thiruvananthapuram": {
+          "places": ["Thiruvananthapuram", "Neyyattinkara", "Attingal", "Varkala", "Kattakada", "Kovalam", "Balaramapuram", "Nemom"]
+        },
+        "Kollam": {
+          "places": ["Kollam", "Paravur", "Punalur", "Karunagappally", "Kottarakkara", "Chavara", "Oachira", "Kulathupuzha"]
+        },
+        "Alappuzha": {
+          "places": ["Alappuzha", "Cherthala", "Kayamkulam", "Haripad", "Mavelikkara", "Ambalappuzha", "Thanneermukkom", "Muhamma"]
+        },
+        "Pathanamthitta": {
+          "places": ["Pathanamthitta", "Adoor", "Thiruvalla", "Ranni", "Konni", "Mallappally", "Kumbazha", "Pandalam"]
+        },
+        "Kottayam": {
+          "places": ["Kottayam", "Changanassery", "Vaikom", "Pala", "Ettumanoor", "Kanjirapally", "Meenachil", "Ramapuram"]
+        },
+        "Idukki": {
+          "places": ["Idukki", "Thodupuzha", "Munnar", "Devikulam", "Painavu", "Adimali", "Udumbanchola", "Vandiperiyar"]
+        },
+        "Ernakulam": {
+          "places": ["Kochi", "Kothamangalam", "Aluva", "Perumbavoor", "Tripunithura", "North Paravur", "Angamaly", "Koothattukulam"]
+        },
+        "Thrissur": {
+          "places": ["Thrissur", "Chalakudy", "Kodungallur", "Irinjalakuda", "Guruvayur", "Kunnamkulam", "Wadakkanchery", "Pudukad"]
+        },
+        "Palakkad": {
+          "places": ["Palakkad", "Ottapalam", "Chittur", "Mannarkkad", "Alathur", "Shoranur", "Mundur", "Pattambi"]
+        },
+        "Malappuram": {
+          "places": ["Malappuram", "Manjeri", "Tirur", "Perinthalmanna", "Nilambur", "Ponnani", "Valanchery", "Kalikavu"]
+        },
+        "Kozhikode": {
+          "places": ["Kozhikode", "Vadakara", "Koyilandy", "Thamarassery", "Koduvally", "Balussery", "Feroke", "Ramanattukara"]
+        },
+        "Wayanad": {
+          "places": ["Kalpetta", "Sulthan Bathery", "Mananthavady", "Vythiri", "Thirunelli", "Pulpally", "Vellamunda", "Padinjarathara"]
+        },
+        "Kannur": {
+          "places": ["Kannur", "Thalassery", "Payyanur", "Mattannur", "Iritty", "Dharmadom", "Thottada", "Panoor"]
+        },
+        "Kasaragod": {
+          "places": ["Kasaragod", "Kanhangad", "Kasargod", "Uppala", "Nileshwar", "Cheruvathur", "Trikkarippur", "Perla"]
+        }
+      }
   

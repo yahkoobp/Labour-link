@@ -28,7 +28,6 @@ function Register() {
       setLoading(false)
     }
   }
-  setError("Please enter password correctly")
 }
   return (
     <div>
