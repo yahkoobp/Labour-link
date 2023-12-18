@@ -36,7 +36,7 @@ const JobView = () => {
             </div>
             </div>
         <div className='flex gap-2 justify-between items-center'>
-                <p className='fonr-semibold text-gray-500 text-[14px]'>Posted on 10/10/2023</p>
+                <p className='fonr-bold text-gray-500 text-[14px]'>Posted on 10/10/2023</p>
                 <p className='font-bold text-[12px] text-green-900'>Active now</p>
             </div>
     </div>
@@ -77,14 +77,6 @@ const JobView = () => {
     </div>
     </div>
 
-    <div className='px-5 py-3 shadow-sm'>
-        <div className='flex flex-col'>
-       <p className='font-semibold'>About the job</p>
-       <i className='font-semibold text-[13px] px-3 mt-1'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est veritatis facere quasi quod facilis optio? Illum, 
-        tenetur sequi praesentium quo recusandae commodi excepturi provident. In numquam alias doloribus vero praesentium.</i>
-    </div>
-    </div>
-
     <div className='w-full h-[4px] bg-gray-200 shadow-md'></div>
     <div className='px-5 py-3 shadow-sm'>
         <div className='flex flex-col'>
@@ -93,7 +85,7 @@ const JobView = () => {
        <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='font-bold text-lg'>Carpenter</h1>
+            <h1 className='text-lg'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>
@@ -108,7 +100,7 @@ const JobView = () => {
     <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='font-bold text-lg'>Carpenter</h1>
+            <h1 className='text-lg'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>
@@ -123,7 +115,7 @@ const JobView = () => {
     <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='font-bold text-lg'>Carpenter</h1>
+            <h1 className='text-lg'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>

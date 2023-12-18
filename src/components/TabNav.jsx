@@ -16,6 +16,7 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import { jobs } from '../data';
 import { Fade } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import PostJob from './PostJob';
 
 
  const TabNav = (props) => {
@@ -91,8 +92,12 @@ import { useNavigate } from 'react-router-dom';
             <JobCard />
             <JobCard />
           </TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
+          <TabPanel value="2">
+            item2
+          </TabPanel>
+          <TabPanel value="3">
+            <PostJob/>
+          </TabPanel>
         </TabContext>
       </Box>
     );
