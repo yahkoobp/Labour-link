@@ -20,6 +20,7 @@ import Jobs from "./pages/Jobs";
 import SkeletonLoader from "./components/SkeletonLoader";
 import Peoples from "./pages/Peoples";
 import JobView from "./pages/JobView";
+import MyProfile from "./pages/MyProfile";
 
 
 
@@ -33,7 +34,8 @@ function App() {
         <Route path="/" element={<Landing/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        {/* <Route path="/profile" element={<Profile/>}/> */}
+        <Route path="/profile" element={<MyProfile/>}/>
         <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
         <Route path="/profile-form" element={<ProtectedRoute><ProfileForm/></ProtectedRoute>}/>
         <Route path="/others-form" element={<ProtectedRoute><OthersForm/></ProtectedRoute>}/> 

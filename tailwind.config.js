@@ -15,6 +15,9 @@ module.exports = {
         "color-primary-light":'#020726',
         "color-primary-dark":'#010417',
 
+      },
+      fontFamily:{
+        'heading':['Roboto Slab','serif']
       }
       
   },
