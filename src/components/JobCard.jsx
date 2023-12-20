@@ -5,40 +5,38 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 
 
-const JobCard = () => {
-    
+const JobCard = (props) => {
+  const job = props.job
+    const j_id = props.job.job_id
   return (
-    <div className=''>
-        <div className='flex flex-col shadow-md mt-2 rounded-lg p-6 gap-4 border border-gray-100'>
+    <div className=' bg-gray-50 rounded-md'>
+      <Link to={`/jobview/${j_id}`}>
+        <div className='flex flex-col shadow-sm mt-2 rounded-md p-6 gap-3'>
             <div className='flex gap-2'>
-                <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='font-bold text-lg'>Carpenter</h1>
+                <WorkIcon sx={{color:"black",width:20,height:20}}/>
+            <h1 className='font-semibold text-md'>{job.job_title}</h1>
             </div>
             <div className='flex gap-2'>
-                <PlaceIcon sx={{color:"green"}}/>
-            <h2 className='font-semibold text-sm text-gray-500'>Perinthalmanna</h2>
+                <PlaceIcon sx={{color:"black",width:20,height:20}}/>
+            <h2 className='font-semibold text-sm text-gray-500'>{job.job_location}</h2>
             </div>
 
            <div className='flex gap-2'>
             <div className='bg-green-100 w-[150px] px-2 py-1 rounded-md'>
-               <h3 className='text-green-800 font-bold text-[12px]'>Rs 900 / day</h3>
+               <h3 className='text-green-800 font-bold text-[12px]'>Rs {job.daily_wage} / day</h3>
             </div>
             <div className='bg-gray-200 w-[150px] px-2 py-1 rounded-md'>
-               <h3 className='text-green-800 font-bold text-[12px]'>Day time</h3>
+               <h3 className='text-green-800 font-bold text-[12px]'>{job.work_time} time</h3>
             </div>
             </div>
 
             <div className='flex gap-2 justify-between items-center'>
-                <p className='fonr-semibold text-gray-500 text-[14px]'>Posted on 10/10/2023</p>
+                <p className='fonr-semibold text-gray-500 text-[13px]'>Posted on {job.time_stamp}</p>
                 <p className='font-bold text-[12px] text-green-900'>Active now</p>
             </div>
 
-           <Link to="/jobview/dsdsddsd"> <div className='flex gap-2 mt-6'>
-              <VisibilityIcon/>
-              <p className='font-semibold'>View</p>
-            </div></Link>
-
         </div>
+        </Link>
     </div>
   )
 }

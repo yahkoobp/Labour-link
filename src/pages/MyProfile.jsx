@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CloseIcon from '@mui/icons-material/Close';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -7,11 +7,100 @@ import WorkIcon from '@mui/icons-material/Work';
 import PlaceIcon from '@mui/icons-material/Place';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
+import ShortcutIcon from '@mui/icons-material/Shortcut';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import { Chip } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { doc ,getDoc,setDoc,updateDoc } from 'firebase/firestore'
+import { db , storage } from '../firebaseConfig'
+import { useUserAuthContext } from '../context/userAuthContext'
+import {ref ,uploadBytesResumable ,getDownloadURL} from 'firebase/storage'
 
 const MyProfile = () => {
+  const {user ,logout} = useUserAuthContext()
+  const [userDetails , setUserDetails] = useState({})
+  const [loading , setLoading] = useState(false)
+  const [file , setFile] = useState("")
+  const [snackbar , setSnackBar] = useState(false)
+  const [loadingProgress,setLoadingProgress] = useState("")
     const navigate = useNavigate()
+    const Alert = React.forwardRef(function Alert(props, ref) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+   
+
+    useEffect(()=>{
+      const fetchData = async()=>{
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          setUserDetails(docSnap.data())
+          
+          // console.log("Document data:", docSnap.data());
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }}
+        fetchData()
+    },[user ,userDetails])
+
+    useEffect(()=>{
+      const updateData = async(img)=>{
+        setLoading(true)
+        try {
+          const user_data = doc(db,"users",user.uid)
+          await updateDoc(user_data ,{
+            image:img
+          })
+         setLoading(false)
+         setSnackBar(true)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+     const uploadFile = ()=>{
+      setLoading(true)
+      const name = new Date().getTime() + file.name
+      const storageRef = ref(storage ,name)
+
+      const uploadTask = uploadBytesResumable(storageRef , file)
+      
+      uploadTask.on(
+        "state_changed",
+        (snapshot)=>{
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setLoadingProgress(progress)
+          console.log(loadingProgress)
+          console.log("uploading is " + progress + "done")
+          switch (snapshot.state){
+            case "paused":
+              console.log("uploading is paused")
+              break;
+            case "running":
+              console.log("uploading is running")
+              break;
+            default:
+              break;
+          }
+        },
+        (error)=>{
+          console.log(error)
+        },
+        ()=>{
+             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
+              console.log("file available at ",downloadURL)
+              updateData(downloadURL)
+             })
+        }
+      )
+
+     }
+
+     file && uploadFile()
+    },[file])
   return (
     <div>
        <div className='h-[60px] p-3 sticky top-0 bg-white flex items-center justify-between'>
@@ -23,13 +112,20 @@ const MyProfile = () => {
         </div>
         <div className='flex flex-col p-4'>
         <div className='flex flex-col gap-2 items-center justify-center p-3 w-full'>
-        <div className=' w-[60px] h-[60px] rounded-full bg-gray-200 flex items-center justify-center border border-gray-300'>
-            {/* <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8"
-             className='w-full h-full rounded-full object-cover' alt="" /> */}
+        <input type='file' id="file" className='hidden' onChange={(e)=>{
+                  setFile(e.target.files[0])
+                }}/>
+                <label htmlFor="file">
+        <div className=' w-[60px] h-[60px] rounded-full bg-gray-200 flex items-center justify-center border border-gray-300 cursor-pointer'>
+          {loading?<CircularProgress>{loadingProgress}</CircularProgress>:userDetails.image?
+            <img src={userDetails.image}
+             className='w-full h-full rounded-full object-cover' alt="bdhbhdbh" /> :
              <PersonAddAlt1Icon sx={{color:"gray" ,width:"30px" , height:"30px"}}/>
+          }
         </div>
-        <h1 className='font-heading text-lg'>YAHKOOB P</h1>
-        <p className='text-gray-600 font-semibold text-center text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </label>
+        <h1 className='font-heading text-lg'>{userDetails.firstname} {userDetails.lastname}</h1>
+        <p className='text-gray-600 font-semibold text-center text-sm'>{userDetails.bio}</p>
         </div>
 
         <div className='flex flex-col items-center justify-center mt-4 rounded-md p-3 gap-3 bg-green-50'>
@@ -43,15 +139,15 @@ const MyProfile = () => {
           </div>
           <div className='flex justify-start items-center w-full gap-3'>
             <PlaceIcon sx={{color:"gray",width:20,height:20}}/>
-            <p className='font-semibold text-[14px]'>Perinthalmanna</p>
+            <p className='font-semibold text-[14px]'>{userDetails.city}</p>
           </div>
           <div className='flex justify-start items-center w-full gap-3'>
             <EmailIcon sx={{color:"gray",width:20,height:20}}/>
-            <p className='font-semibold text-[14px]'>yahkoobp007@gmail.com</p>
+            <p className='font-semibold text-[14px]'>{userDetails.email}</p>
           </div>
           <div className='flex justify-start items-center w-full gap-3'>
             <PhoneIcon sx={{color:"gray",width:20,height:20}}/>
-            <p className='font-semibold text-[14px]'>8943871306</p>
+            <p className='font-semibold text-[14px]'>{userDetails.phonenumber}</p>
           </div>
         </div>
 
@@ -62,15 +158,15 @@ const MyProfile = () => {
           </div>
           <div className='w-full'>
             <p className=' font-semibold text-[12px] text-gray-500'>First name</p>
-            <p className=' font-semibold text-[14px] '>Yahkoob</p>
+            <p className=' font-semibold text-[14px] '>{userDetails.firstname}</p>
           </div>
           <div className='w-full'>
             <p className=' font-semibold text-[12px] text-gray-500'>Last name</p>
-            <p className=' font-semibold text-[14px]'>Pulikkal</p>
+            <p className=' font-semibold text-[14px]'>{userDetails.lastname}</p>
           </div>
           <div className='w-full'>
             <p className=' font-semibold text-[12px] text-gray-500'>Address</p>
-            <p className=' font-semibold text-[14px]'>Pulikkal(H) , Elamkulam ,Perumpara</p>
+            <p className=' font-semibold text-[14px]'>{userDetails.address}</p>
           </div>
           
         </div>
@@ -81,24 +177,35 @@ const MyProfile = () => {
             <AddBoxIcon sx={{color:"darkblue"}}/>
           </div>
           <div className='flex gap-3 p-3 flex-wrap'>
-            <Chip label="Agricultural labour" size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
-            <Chip label="carpenter" color='primary' size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
-            <Chip label="Mason" color='primary' size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
-            <Chip label="Agricultural labour" color='primary' size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
-            <Chip label="carpenter" color='primary' size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
-            <Chip label="Mason" color='primary' size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
+            {userDetails.work_areas?.map((work)=>(
+            <Chip label={work} size='' variant='outlined' sx={{color:"gray"}} onDelete={()=>{}}/>
+            ))}
           </div>
         </div>
 
         <div className='flex flex-col justify-center mt-4 rounded-md p-3 gap-2 border border-gray-200'>
           <div className='flex items-center justify-between w-full'>
             <h2 className='font-bold text-md '>Previous works</h2>
-            <h2 className='font-bold text-blue-900'>View</h2>
+            <ShortcutIcon/>
           </div>
           <p className='font-semibold text-[13px] text-gray-600'>See the previous works that you have completed</p>
          
         </div>
     </div>
+
+    <Snackbar
+        open={snackbar}
+        autoHideDuration={3000}
+        message="Image updated successfully"
+        onClose={()=>{setSnackBar(false)}}
+        anchorOrigin={{
+          vertical:'bottom',
+          horizontal:'center'
+        }}
+      >
+        <Alert severity="success">Image updated successfully...</Alert>
+      </Snackbar>
+    
     </div>
   )
 }

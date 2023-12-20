@@ -156,12 +156,13 @@ const ProfileForm = () => {
         </div>
 
         <div>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor:"#001079",fontWeight:"bold"}}
         open={loading}
-      >
+      > <div className='flex flex-col items-center justify-center gap-4'>
         <CircularProgress color="inherit"/>
-        <span style={{marginLeft:10}}>Creating your profile , Please wait.....</span>
+        <span style={{marginLeft:10}}>Your job js posting , Please wait.....</span>
+        </div>
       </Backdrop>
     </div>
     </div>

@@ -1,15 +1,58 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import WorkIcon from '@mui/icons-material/Work';
 import PlaceIcon from '@mui/icons-material/Place';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { doc ,getDoc } from 'firebase/firestore'
+import { db} from '../firebaseConfig'
 import DrawerComponent from '../components/DrawerComponent';
 import { Drawer, Box, Typography, SwipeableDrawer } from '@mui/material';
 
 const JobView = () => {
     const navigate= useNavigate()
     const [isDrawerOpen , setDrawerOpen] = useState(false)
+    const [jobDetails , setJobDetails] = useState({})
+    const [jobPoster , setJobPoster] = useState({})
+    const location = useLocation()
+    const job_id = location.pathname.split("/")[2]
+
+      useEffect(()=>{
+        const fetchData = async()=>{
+          const docRef = doc(db, "jobs", job_id);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            setJobDetails(docSnap.data())
+            // console.log(userDetails)
+            // console.log("Document data:", docSnap.data());
+          } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }}
+          fetchData()
+      },[job_id])
+
+// const job_poster_id = jobDetails.job_poster.toString()
+
+// useEffect(()=>{
+//   const fetchData = async()=>{
+
+//     const docRef = doc(db, "users",jobDetails.job_poster);
+//     const docSnap = await getDoc(docRef);
+    
+//     if (docSnap.exists()) {
+//       setJobPoster(docSnap.data())
+//       console.log(jobPoster)
+      
+//       // console.log("Document data:", docSnap.data());
+//     } else {
+//       // docSnap.data() will be undefined in this case
+//       console.log("No such document!");
+//     }}
+//     fetchData()
+// },[])
+
   return (
     <div className='flex flex-col relative'>
         <div className='h-[55px] shadow-md p-3 sticky top-0 bg-white'>
@@ -18,25 +61,25 @@ const JobView = () => {
                 // e.preventDefault()
             }} sx={{color:'gray',cursor:"pointer"}}/>
         </div>
-        <div className='flex flex-col gap-5 mt-4 p-5 shadow-sm'>
+        <div className='flex flex-col gap-3 mt-4 p-5 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='font-bold text-lg'>Carpenter</h1>
+            <h1 className='font-bold text-lg'>{jobDetails.job_title}</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>
-            <i className='font-semibold text-[14px]'>Perinthalmanna</i>
+            <i className='font-semibold text-[14px]'>{jobDetails.job_location}</i>
         </div>
         <div className='flex gap-2'>
             <div className='bg-green-100 w-[150px] px-2 py-1 rounded-md'>
-               <h3 className='text-green-800 font-bold text-[12px]'>Rs 900 / day</h3>
+               <h3 className='text-green-800 font-bold text-[12px]'>Rs {jobDetails.daily_wage} / day</h3>
             </div>
             <div className='bg-gray-200 w-[150px] px-2 py-1 rounded-md'>
-               <h3 className='text-green-800 font-bold text-[12px]'>Day time</h3>
+               <h3 className='text-green-800 font-bold text-[12px]'>{jobDetails.work_time} time</h3>
             </div>
             </div>
         <div className='flex gap-2 justify-between items-center'>
-                <p className='fonr-bold text-gray-500 text-[14px]'>Posted on 10/10/2023</p>
+                <p className='fonr-bold text-gray-500 text-[13px]'>Posted on {jobDetails.time_stamp}</p>
                 <p className='font-bold text-[12px] text-green-900'>Active now</p>
             </div>
     </div>
@@ -72,8 +115,7 @@ const JobView = () => {
     <div className='px-5 py-3 shadow-sm'>
         <div className='flex flex-col'>
        <p className='font-semibold'>About the job</p>
-       <i className='font-semibold text-[13px] px-3 mt-1'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est veritatis facere quasi quod facilis optio? Illum, 
-        tenetur sequi praesentium quo recusandae commodi excepturi provident. In numquam alias doloribus vero praesentium.</i>
+       <p className='font-semibold text-[13px] px-3 mt-1'>{jobDetails.description}</p>
     </div>
     </div>
 
@@ -85,7 +127,7 @@ const JobView = () => {
        <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='text-lg'>Carpenter</h1>
+            <h1 className='text-md'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>
@@ -100,7 +142,7 @@ const JobView = () => {
     <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='text-lg'>Carpenter</h1>
+            <h1 className='text-md'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>
@@ -115,7 +157,7 @@ const JobView = () => {
     <div className='flex flex-col gap-1 px-3 py-2 shadow-sm'>
         <div className='flex gap-2'>
                 <WorkIcon sx={{color:"teal"}}/>
-            <h1 className='text-lg'>Carpenter</h1>
+            <h1 className='text-md'>Carpenter</h1>
             </div>
           <div className='flex items-center gap-2'>
             <PlaceIcon sx={{color:"green"}}/>

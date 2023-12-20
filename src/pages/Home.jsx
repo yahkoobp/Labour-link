@@ -10,6 +10,11 @@ import SkeletonLoader from '../components/SkeletonLoader'
 import Fade from '@mui/material/Fade';
 import Grow from '@mui/material/Grow';
 import Zoom from '@mui/material/Zoom';
+import Spinner from 'react-bootstrap/Spinner';
+import { FaSpinner } from 'react-icons/fa6'
+import ClipLoader from "react-spinners/ClipLoader";
+import GridLoader from "react-spinners/GridLoader";
+import HashLoader from "react-spinners/HashLoader";
 
 function Home() {
   const {user , logout} = useUserAuthContext()
@@ -60,7 +65,10 @@ function Home() {
    } )
   return (
     <div className=''>
-      Home
+      
+     <ClipLoader color="#36d7b7" />
+     <GridLoader/>
+     <HashLoader color="#36d7b7" />
         {/* <div className='sticky z-50 top-0 w-full'>
         <Header/>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -17,11 +17,13 @@ import { jobs } from '../data';
 import { Fade } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PostJob from './PostJob';
-
+import { collection , getDocs } from 'firebase/firestore'
+import { db } from '../firebaseConfig'
 
  const TabNav = (props) => {
     const [value, setValue] = React.useState('1');
     const [visibleBox , setVisibleBox] = useState(true)
+    const [AllJobs ,setAllJobs] = useState([])
     const navigate= useNavigate()
     
     const handleChange = (event, newValue) => {
@@ -29,7 +31,6 @@ import PostJob from './PostJob';
     };
     const [query , setQuery] = useState("")
     const tabnav = document.getElementById("tabnav")
-    console.log(tabnav?.classList)
 
     const handleFocus =()=>{
         setVisibleBox(false)
@@ -38,8 +39,25 @@ import PostJob from './PostJob';
       setVisibleBox(true)
     }
   
+    useEffect(()=>{
+      const fetchJob = async()=>{
+        let list = []
+        try {
+          const querySnapShot = await getDocs(collection(db , "jobs"));
+          querySnapShot.forEach((doc)=>{
+            list.push({job_id: doc.id ,...doc.data()})
+          })
+          setAllJobs(list)
+          console.log(AllJobs)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+  
+      fetchJob()
+    },[AllJobs])
     return (
-    
+      <div className=''>
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={value} >
          {visibleBox &&
@@ -54,7 +72,7 @@ import PostJob from './PostJob';
           </Fade>}
           <TabPanel value="1">
           <div className='sticky z-100 top-0 w-full ml-0'>
-        <div className=' py-4 shadow-sm bg-white w-full'>
+        <div className=' py-4 bg-white w-full'>
         <div className='w-full flex items-center justify-center'>
         <Paper  onChange={(e)=>setQuery(e.target.value)}
       component="form"
@@ -75,7 +93,7 @@ import PostJob from './PostJob';
     </Paper>
     </div>
     <ul className='ml-0 '>
-        {query !== "" && jobs.filter((job=>job.toLowerCase().startsWith(query))).map((filteredItem)=>(
+        {query !== "" && jobs.filter((job=>job.toLowerCase().includes(query))).map((filteredItem)=>(
             <div className='flex border-b border-b-gray-200 items-center justify-start w-full bg-white'>
                 <SearchIcon sx={
                     {color:"gray"}
@@ -88,9 +106,11 @@ import PostJob from './PostJob';
        </ul>
        </div>
     </div>
-            <JobCard/>
-            <JobCard />
-            <JobCard />
+    {
+      AllJobs.map((job)=>(
+        <JobCard job={job}/>
+      ))
+    }
           </TabPanel>
           <TabPanel value="2">
             item2
@@ -100,6 +120,7 @@ import PostJob from './PostJob';
           </TabPanel>
         </TabContext>
       </Box>
+      </div>
     );
 }
 export default TabNav
