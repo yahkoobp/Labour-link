@@ -31,7 +31,7 @@ const BottomTab = (props) => {
       }
   }
   return (
-  <BottomNavigation sx={{width:'100%' , position:"absolute" , bottom:0 , backgroundColor:"#f0f8ff"}} value={value} onChange={handleChange} showLabels>
+  <BottomNavigation sx={{width:'100%' , position:"absolute" , bottom:0 , backgroundColor:"white"}} value={value} onChange={handleChange} showLabels>
      <BottomNavigationAction label="Home" icon={<HomeRoundedIcon/>}/>
      <BottomNavigationAction label="Jobs" icon={<HomeRepairServiceRoundedIcon/>}/>
      <BottomNavigationAction label="Peoples" icon={<PeopleAltRoundedIcon/>}/>

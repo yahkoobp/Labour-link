@@ -14,13 +14,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import { jobs, kerala_places } from '../data';
-import { Autocomplete, Fade, TextField } from '@mui/material';
+import { Autocomplete, Drawer, Fade, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PostJob from './PostJob';
 import { collection , getDocs, query, where } from 'firebase/firestore'
 import { db } from '../firebaseConfig'
 import JobPosts from './JobPosts';
 import TuneIcon from '@mui/icons-material/Tune';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import PlaceIcon from '@mui/icons-material/Place';
 
 
  const TabNav = (props) => {
@@ -34,6 +36,7 @@ import TuneIcon from '@mui/icons-material/Tune';
     const default_option =["Please select a district"]
     const navigate= useNavigate()
     const listView = document.getElementById("list")
+    const [drawerOpen , setDrawerOpen] = useState(false)
    
    
     // console.log(jobsByTitle)
@@ -100,8 +103,22 @@ import TuneIcon from '@mui/icons-material/Tune';
       }
 
     },[])
+    let lastScroll = 0
+      const container = document.getElementById("container")
+      window.addEventListener("scroll",(event)=>{
+      const filter = document.getElementById("filter")
+      const currentScroll = window.scrollY
+        if(currentScroll > lastScroll){
+        filter?.classList.add("hidden")
+    }
+
+    if(currentScroll < lastScroll){
+      filter?.classList.remove("hidden")
+    }
+    lastScroll = currentScroll
+    })
     return (
-      <div className=''>
+      <div className='' id="container">
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={value} >
          {visibleBox &&
@@ -117,7 +134,7 @@ import TuneIcon from '@mui/icons-material/Tune';
           </Box>
           </Fade>}
           <TabPanel value="1">
-          <div className='sticky z-100 top-0 w-full ml-0 border-b-2 border-b-gray-300'>
+          <div className='sticky z-100 top-0 w-full ml-0'>
         <div className=' py-4 bg-white w-full'>
         <div className='w-full flex items-center justify-center'>
         <Paper  onChange={(e)=>{setFilterQuery(e.target.value)
@@ -151,33 +168,32 @@ import TuneIcon from '@mui/icons-material/Tune';
             </div>
         ))}
        </ul>
-       {/* <div className='flex items-center justify-center w-full px-16 gap-8'>
-           <div className='w-[180px]'>
-                <Autocomplete
-                size='small'
-                sx={{width:"400px"}}
-                variant="standard"
-                options={districts} renderInput={(params)=> <TextField variant='standard' sx={{font:"12px",width:"100px"}}  {...params} label="district" name="district"></TextField>} 
-                onChange={(e , value)=>{
-                  setDistrict(e.target.outerText)
-                  // console.log(district)
-                  // console.log(kerala_places[district].places)
-                }}></Autocomplete>
-                </div>
-
-                <div className='w-[180px]'>
-                <Autocomplete
-                sx={{width:"200px"}}
-                size='small'
-                
-                options={kerala_places[district]?kerala_places[district]?.places:default_option} renderInput={(params)=> <TextField variant='standard' {...params} label="city" name="city"></TextField>} 
-                ></Autocomplete>
-                </div>
-       </div> */}
+       <div className='flex items-center justify-start md:justify-center w-full gap-4 '>
+          {/* <TuneIcon sx={{width:"30px",height:"30px",color:"gray"}}/> */}
+          {/* <div className='rounded-full mt-4 flex items-center justify-center shadow-sm bg-gray-50 px-3 py-1 cursor-pointer
+           border border-gray-200 gap-2'>
+            <PlaceIcon sx={{color:"gray",width:"20px"}}/>
+             <h2 className='font-heading  text-gray-700'>Location</h2>
+             <ArrowDropDownIcon/>
+          </div>  
+          <div className='rounded-full mt-4 flex items-center justify-center shadow-sm bg-gray-50 px-3 py-1 cursor-pointer
+           border border-gray-200 gap-2'>
+            <PlaceIcon sx={{color:"gray",width:"20px"}}/>
+             <h2 className='font-heading  text-gray-700'>Location</h2>
+             <ArrowDropDownIcon/>
+          </div>  
+          <div className='rounded-full mt-4 flex items-center justify-center shadow-sm bg-gray-50 px-3 py-1 cursor-pointer
+           border border-gray-200 gap-2'>
+            <PlaceIcon sx={{color:"gray",width:"20px"}}/>
+             <h2 className='font-heading  text-gray-700'>Location</h2>
+             <ArrowDropDownIcon/>
+          </div>     */}
+       </div>
        </div>
     </div>
     {filterQuery!=="" && selected ? jobsByTitle.map((job)=>(
         <JobCard job={job}/>
+        
       )) :
       AllJobs.map((job)=>(
         <JobCard job={job}/>
@@ -195,6 +211,25 @@ import TuneIcon from '@mui/icons-material/Tune';
           </TabPanel>
         </TabContext>
       </Box>
+      <div id="filter" className='fixed z-50 bottom-16 left-0 w-full flex items-center 
+      justify-center'>
+        <div className='rounded-full px-6 py-1 flex items-center justify-center gap-2 shadow-lg bg-white cursor-pointer'
+        onClick={()=>setDrawerOpen(true)}>
+          <div className='h-[7px] w-[7px] bg-green-600 rounded-full'></div>
+          <TuneIcon/>
+         <h2 className='font-heading'>Filter</h2>
+         </div>
+      </div>
+      <div className='relative bottom-0 left-0 h-[100px] w-full'>
+
+      </div>
+
+      <Drawer anchor="bottom" open={drawerOpen} onClose={()=>setDrawerOpen(false)} onOpen={()=>{}} sx={{borderTopLeftRadius:"10px"}}>
+       <div className='rounded-tl-lg'>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae assumenda numquam molestias mollitia ab minima, laboriosam totam error, voluptate eaque repudiandae facere quae nulla iusto quaerat vero amet tempore.
+        filters
+       </div>
+    </Drawer>
       </div>
     );
 }

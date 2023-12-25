@@ -33,7 +33,10 @@ const JobCard = (props) => {
             </div>
 
             <div className='flex gap-2 justify-between items-center'>
+              <div className='flex items-center justify-center gap-3'>
+               <div className='h-[7px] w-[7px] bg-green-600 rounded-full'></div>
                 <p className='font-bold text-blue-900 text-[13px]'>Posted on {job.time_stamp}</p>
+              </div>
                 <p className='font-bold text-[12px] text-green-900'>Active now</p>
             </div>
             <div className='flex gap-2 justify-start items-center'>
