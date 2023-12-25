@@ -19,39 +19,52 @@ const JobView = () => {
 
       useEffect(()=>{
         const fetchData = async()=>{
-          const docRef = doc(db, "jobs", job_id);
-          const docSnap = await getDoc(docRef);
-          
-          if (docSnap.exists()) {
-            setJobDetails(docSnap.data())
+          try {
+            const jobdocRef = doc(db, "jobs", job_id);
+          const jobdocSnap = await getDoc(jobdocRef);
+      
+          if (jobdocSnap.exists()) {
+            setJobDetails(jobdocSnap.data())
             // console.log(userDetails)
             // console.log("Document data:", docSnap.data());
           } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
-          }}
+          }
+            
+          } catch (error) {
+            console.log(error)
+          }
+        }
           fetchData()
       },[job_id])
 
-// const job_poster_id = jobDetails.job_poster.toString()
+const job_poster_id = jobDetails.job_poster
 
-// useEffect(()=>{
-//   const fetchData = async()=>{
-
-//     const docRef = doc(db, "users",jobDetails.job_poster);
-//     const docSnap = await getDoc(docRef);
+useEffect(()=>{
+  const fetchData = async()=>{
+    try{
+      if(jobDetails){
+      const docRef = doc(db, "users",job_poster_id);
+      const docSnap = await getDoc(docRef);
     
-//     if (docSnap.exists()) {
-//       setJobPoster(docSnap.data())
-//       console.log(jobPoster)
+    if (docSnap.exists()) {
+      setJobPoster(docSnap.data())
+      console.log(jobPoster)
       
-//       // console.log("Document data:", docSnap.data());
-//     } else {
-//       // docSnap.data() will be undefined in this case
-//       console.log("No such document!");
-//     }}
-//     fetchData()
-// },[])
+      // console.log("Document data:", docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
+    }catch(err){
+ console.log(err)
+    }
+  }
+    
+    fetchData()
+},[jobDetails])
 
   return (
     <div className='flex flex-col relative'>
@@ -92,10 +105,10 @@ const JobView = () => {
             <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1701156585~exp=1701157185~hmac=ac68d03b1add36a89081d098324072530d782a1bd6a57a0eebb5ff7e6ae9cea8" className='w-full h-full rounded-full object-cover' alt="" />
         </div>
        <div className='mt-1 px-3'>
-            <h1 className='font-semibold text-sm'>Menakkuth Suhail</h1>
+            <h1 className='font-semibold text-sm'>{jobPoster.firstname} {jobPoster.lastname}</h1>
             <div className='text-sm font-semibold text-gray-500'>
-            <p>Menakkuth (H)</p>
-            <p>Mob :123456789</p>
+            <p>{jobPoster.address}</p>
+            <p>Mob :{jobPoster.phonenumber}</p>
             </div>
         </div>
         </div>

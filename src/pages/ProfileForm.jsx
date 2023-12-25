@@ -9,6 +9,7 @@ import { locations } from '../data'
 import { kerala_cities ,jobs ,kerala_places} from '../data'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { GridLoader } from 'react-spinners'
 
 
 
@@ -38,12 +39,6 @@ const ProfileForm = () => {
             work_areas:work_areas,
             timeStamp : serverTimestamp()
         })
-
-        await setDoc(doc(db ,"labours",user.uid),{
-          ...finalData,
-          work_areas:work_areas,
-          timeStamp : serverTimestamp()
-      }) 
         setLoading(false)
         navigate("/home")
 
@@ -61,7 +56,8 @@ const ProfileForm = () => {
     
     <div className='w-full h-[100vh] p-6 relative'>
         <div className="">
-            <p className='para'>Let's start with filling in the basic details about yourself </p>
+            <h1 className='font-heading text-lg'>Basic details</h1>
+            <p className='font-semibold text-[13px] text-gray-500'>Add some basic details about yourself to help others know you</p>
             <form onSubmit={handleSubmit} className='flex flex-col gap-8 mt-6 text-sm lg:text-md'>
                 <div className='inputBox'>
                 <input type="text" name="firstname" required="required" />
@@ -86,7 +82,7 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='inputBox'>
-                <input type="text" name="email" value={user.email} required />
+                <input type="text" name="email" value={user.email} required/>
                 <span>Email Id</span>
                 </div>
 
@@ -99,7 +95,7 @@ const ProfileForm = () => {
                 <div className=''>
                 <Autocomplete
                 required
-                options={districts} renderInput={(params)=> <TextField required  {...params} label="Select district" name="district"></TextField>} 
+                options={districts} renderInput={(params)=> <TextField sx={{font:"12px"}}required  {...params} label="Select district" name="district"></TextField>} 
                 onChange={(e , value)=>{
                   setDistrict(e.target.outerText)
                   // console.log(district)
@@ -135,7 +131,7 @@ const ProfileForm = () => {
       )}
       style={{ width: "100%" ,fontSize:"12px" }}
       renderInput={(params) => (
-        <TextField {...params} label="Select Work Areas" placeholder="Work Areas" />
+        <TextField {...params} label="Select work areas" placeholder="Work areas" />
       )}
       onChange={(e,value)=>{
          
@@ -149,19 +145,19 @@ const ProfileForm = () => {
                 <span>Expected Daily Wage in INR</span>
                 </div>
                 </div>
-                <div className='sticky bottom-0 left-0 w-full h-[50px] bg-gray-100 z-50 flex items-center justify-end p-4 border-t-2'>
-             <button type="submit"className='bg-gray-900 rounded-md py-2 px-3 text-white hover:scale-102 duration-300 text-center cursor-pointer'>Sumbit</button>
+                <div className='sticky bottom-0 left-0 w-full h-[50px] z-50 flex items-center justify-end '>
+             <button type="submit"className='bg-blue-700 rounded-full py-2 px-4 text-white hover:scale-102 duration-300 text-center cursor-pointer font-semibold'>Sumbit</button>
         </div>
             </form>
         </div>
 
         <div>
         <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor:"#001079",fontWeight:"bold"}}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 ,fontWeight:"bold",backgroundColor:"teal"}}
         open={loading}
       > <div className='flex flex-col items-center justify-center gap-4'>
-        <CircularProgress color="inherit"/>
-        <span style={{marginLeft:10}}>Your job js posting , Please wait.....</span>
+        <GridLoader color='#fff'/>
+        <span style={{marginLeft:10}}>Creating your profile...</span>
         </div>
       </Backdrop>
     </div>

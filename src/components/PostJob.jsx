@@ -10,6 +10,10 @@ import { useUserAuthContext } from '../context/userAuthContext';
 import Swal from 'sweetalert2'
 import Spinner from 'react-bootstrap/Spinner';
 import GridLoader from "react-spinners/GridLoader";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 const PostJob = () => {
@@ -17,6 +21,11 @@ const PostJob = () => {
     const {user} = useUserAuthContext()
     const [job , setJob] = useState("")
     const [loading , setLoading] = useState(false)
+    const [startDate , setStartDate] = useState(null)
+    const [endDate , setEndDate] = useState(null)
+
+    console.log(startDate)
+    console.log(endDate)
 
     const handleSubmit = async(e)=>{
     e.preventDefault()
@@ -26,6 +35,8 @@ const PostJob = () => {
         setLoading(true)
         const docRef = await addDoc(collection(db, "jobs"), {
          ...finalData,
+        //  start_date:startDate,
+        //  end_date:endDate,
          job_poster:user.uid,
          isActive:true,
          time_stamp :new Date().toDateString()
@@ -46,8 +57,8 @@ const PostJob = () => {
     }
   return (
     <>
-    <div className=''>
-        <h1 className="text-md">Whome did you wanted to hire</h1>
+    <div className='py-2'>
+        <h1 className="text-md ">Whome did you wanted to hire</h1>
         <form action="" onSubmit={handleSubmit} className='flex flex-col gap-6'>
         <Autocomplete
                 required
@@ -77,8 +88,22 @@ const PostJob = () => {
                 <FormControlLabel control={<Radio size='small'/>} label="Both" value="Both"/>
             </RadioGroup>
         </FormControl>
+        <div className='flex flex-col gap-2 w-full'>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']} sx={{width:"100%"}}>
+        <DatePicker label="Start date" value={startDate} onChange={(newVal) =>{setStartDate(newVal)}}/>
+      </DemoContainer>
+    </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']}>
+        <DatePicker label="End date" value={endDate} onChange={(newVal) =>{setEndDate(newVal)}}/>
+      </DemoContainer>
+    </LocalizationProvider>
+    </div>
+        
 
-        <TextField id="standard-basic" label="Daily wage" variant="standard" name='daily_wage'/>
+
+        <TextField id="standard-basic" label="Daily wage" variant="standard" name='daily_wage' sx={{fontWeight:"500px"}}/>
 
         <textarea name="description" rows="4" cols="50" style={{border:"1px solid gray",marginTop:3,padding:2}} placeholder='Job description'>
 
@@ -87,6 +112,9 @@ const PostJob = () => {
   Post Job
 </Button>
 </form>
+<div className='h-[100px]'>
+
+</div>
     </div>
 
 

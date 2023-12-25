@@ -21,54 +21,62 @@ function Home() {
   const [users , setUsers] = useState([])
   const [loading , setLoading] = useState(false)
 
-  useEffect(()=>{
-    setLoading(true)
-    const fetchData = async()=>{
-      let list = []
-      try {
-        const querySnapShot = await getDocs(collection(db , "labours"));
-        querySnapShot.forEach((doc)=>{
-          list.push({id: doc.id ,...doc.data()})
-        })
-        setUsers(list)
-        setLoading(false)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+  // useEffect(()=>{
+  //   console.log("component mounted")
+  //   let unSubscibe = false
+  //   setLoading(true)
+  //   const fetchData = async()=>{
+  //     let list = []
+  //     try {
+  //       const querySnapShot = await getDocs(collection(db , "labours"));
+  //       querySnapShot.forEach((doc)=>{
+  //         list.push({id: doc.id ,...doc.data()})
+  //       })
+  //       setUsers(list)
+  //       setLoading(false)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   if(unSubscibe == false){
+  //   fetchData()
+  //   }
 
-    fetchData()
-  },[])
-  console.log(users)
-   const body=document.body
-   console.log(body.classList)
-   let lastScroll = 0
-   window.addEventListener('scroll',()=>{
-    console.log(window.scrollY)
-    const currentScroll = window.scrollY
-    if(currentScroll <=0){
-        body.classList.remove("scroll-up")
-    }
+  //   return ()=>{
+  //     console.log("component unmounted")
+  //     unSubscibe = true
+  //   }
+  // },[])
+  // console.log(users)
+  //  const body=document.body
+  //  console.log(body.classList)
+  //  let lastScroll = 0
+  //  window.addEventListener('scroll',()=>{
+  //   console.log(window.scrollY)
+  //   const currentScroll = window.scrollY
+  //   if(currentScroll <=0){
+  //       body.classList.remove("scroll-up")
+  //   }
 
-    if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
-        body.classList.remove("scroll-up")
-        body.classList.add("scroll-down")
+  //   if(currentScroll > lastScroll && !body.classList.contains("scroll-down")){
+  //       body.classList.remove("scroll-up")
+  //       body.classList.add("scroll-down")
 
-    }
+  //   }
 
-    if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
-        body.classList.remove("scroll-down")
-        body.classList.add("scroll-up")
+  //   if(currentScroll < lastScroll && body.classList.contains("scroll-down")){
+  //       body.classList.remove("scroll-down")
+  //       body.classList.add("scroll-up")
 
-    }
-    lastScroll = currentScroll
-   } )
+  //   }
+  //   lastScroll = currentScroll
+  //  } )
   return (
     <div className=''>
-      
+{/*       
      <ClipLoader color="#36d7b7" />
      <GridLoader/>
-     <HashLoader color="#36d7b7" />
+     <HashLoader color="#36d7b7" /> */}
         {/* <div className='sticky z-50 top-0 w-full'>
         <Header/>
         </div>
