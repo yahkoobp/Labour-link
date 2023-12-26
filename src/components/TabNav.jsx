@@ -13,8 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
-import { jobs, kerala_places } from '../data';
-import { Autocomplete, Drawer, Fade, TextField } from '@mui/material';
+import { jobs, kerala_cities, kerala_places } from '../data';
+import { Autocomplete, Drawer, Fade, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PostJob from './PostJob';
 import { collection , getDocs, query, where } from 'firebase/firestore'
@@ -23,6 +23,9 @@ import JobPosts from './JobPosts';
 import TuneIcon from '@mui/icons-material/Tune';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PlaceIcon from '@mui/icons-material/Place';
+import { pink } from '@mui/material/colors';
+import Checkbox from '@mui/material/Checkbox';
+
 
 
  const TabNav = (props) => {
@@ -37,6 +40,28 @@ import PlaceIcon from '@mui/icons-material/Place';
     const navigate= useNavigate()
     const listView = document.getElementById("list")
     const [drawerOpen , setDrawerOpen] = useState(false)
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    const [cityFilter , setCityFilter] = useState("")
+    const [selection , setSelection] = useState(1)
+    const filter1 = document.getElementById("filter1")
+    const filter2 = document.getElementById("filter2")
+    const filter3 = document.getElementById("filter3")
+
+
+    if(selection==1){
+     filter1?.classList?.add("bg-gray-300")
+     filter2?.classList?.remove("bg-gray-300")
+     filter3?.classList?.remove("bg-gray-300")
+    }else if(selection ==2){
+      filter1?.classList?.remove("bg-gray-300")
+     filter2?.classList?.add("bg-gray-300")
+     filter3?.classList?.remove("bg-gray-300")
+    }else if(selection ==3){
+      filter1?.classList?.remove("bg-gray-300")
+     filter2?.classList?.remove("bg-gray-300")
+     filter3?.classList?.add("bg-gray-300")
+    }
+
    
    
     // console.log(jobsByTitle)
@@ -106,14 +131,14 @@ import PlaceIcon from '@mui/icons-material/Place';
     let lastScroll = 0
       const container = document.getElementById("container")
       window.addEventListener("scroll",(event)=>{
-      const filter = document.getElementById("filter")
+      const filter = document?.getElementById("filter")
       const currentScroll = window.scrollY
         if(currentScroll > lastScroll){
-        filter?.classList.add("hidden")
+        filter?.classList?.add("hidden")
     }
 
     if(currentScroll < lastScroll){
-      filter?.classList.remove("hidden")
+      filter?.classList?.remove("hidden")
     }
     lastScroll = currentScroll
     })
@@ -192,11 +217,33 @@ import PlaceIcon from '@mui/icons-material/Place';
        </div>
     </div>
     {filterQuery!=="" && selected ? jobsByTitle.map((job)=>(
+      <div>
         <JobCard job={job}/>
+        <div className='fixed z-50 bottom-16 left-0 w-full flex items-center 
+      justify-center'>
+        <div className='rounded-full px-6 py-1 flex items-center justify-center gap-2 shadow-lg bg-white cursor-pointer'
+        onClick={()=>setDrawerOpen(true)}>
+          <div className='h-[7px] w-[7px] bg-green-600 rounded-full'></div>
+          <TuneIcon/>
+         <h2 className='font-heading'>Filter</h2>
+         </div>
+      </div>
+      </div>
         
       )) :
       AllJobs.map((job)=>(
+        <div>
         <JobCard job={job}/>
+        <div id="filter" className='fixed z-50 bottom-16 left-0 w-full flex items-center 
+      justify-center'>
+        <div className='rounded-full px-6 py-1 flex items-center justify-center gap-2 shadow-lg bg-white cursor-pointer'
+        onClick={()=>setDrawerOpen(true)}>
+          <div className='h-[7px] w-[7px] bg-green-600 rounded-full'></div>
+          <TuneIcon/>
+         <h2 className='font-heading'>Filter</h2>
+         </div>
+      </div>
+      </div>
       ))
     }
           </TabPanel>
@@ -211,24 +258,70 @@ import PlaceIcon from '@mui/icons-material/Place';
           </TabPanel>
         </TabContext>
       </Box>
-      <div id="filter" className='fixed z-50 bottom-16 left-0 w-full flex items-center 
-      justify-center'>
-        <div className='rounded-full px-6 py-1 flex items-center justify-center gap-2 shadow-lg bg-white cursor-pointer'
-        onClick={()=>setDrawerOpen(true)}>
-          <div className='h-[7px] w-[7px] bg-green-600 rounded-full'></div>
-          <TuneIcon/>
-         <h2 className='font-heading'>Filter</h2>
-         </div>
-      </div>
+      
       <div className='relative bottom-0 left-0 h-[100px] w-full'>
 
       </div>
 
       <Drawer anchor="bottom" open={drawerOpen} onClose={()=>setDrawerOpen(false)} onOpen={()=>{}} sx={{borderTopLeftRadius:"10px"}}>
-       <div className='rounded-tl-lg'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae assumenda numquam molestias mollitia ab minima, laboriosam totam error, voluptate eaque repudiandae facere quae nulla iusto quaerat vero amet tempore.
-        filters
+        <div className='flex items-center justify-between border border-b-gray-200 px-3 py-4 rounded-t-lg'>
+          <h2 className='font-heading'>Filter</h2>
+          <button className='font-heading text-white bg-blue-500 px-4 py-2 rounded-md'>Apply</button>
+        </div>
+       <div className='rounded-tl-lg flex h-[400px]'>
+        <div  className='flex flex-col justify-start item-start bg-gray-200 '>
+          <div id="filter1" className='px-8 py-3 bg-gray-100 w-full cursor-pointer' onClick={()=>setSelection(1)}>
+            <h2 className='font-semibold'>Location</h2>
+          </div>
+          <div id="filter2" className='px-8 py-3 bg-gray-100 cursor-pointer' onClick={()=>setSelection(2)}>
+            <h2 className='font-semibold'>Daily wage</h2>
+          </div>
+          <div id="filter3" className='px-8 py-3 bg-gray-100 cursor-pointer' onClick={()=>setSelection(3)}>
+            <h2 className='font-semibold'>Time of work</h2>
+          </div>
+        </div>
+        
+        { selection==1 &&
+        <div className="flex flex-col item-center justify-start overflow-y-auto flex-1 p-3 relative">
+          <input type="text" value={cityFilter} className='bg-gray-100 focus:outline-none border border-gray-200 px-6 py-2 rounded-full ' 
+          placeholder='Search by Location' onChange={(e)=>{setCityFilter(e.target.value)}}/>
+        <FormGroup>
+          { kerala_cities.filter((city=>city.toLowerCase().includes(cityFilter.toLocaleLowerCase()))).map((city)=>(
+           <FormControlLabel control={<Checkbox  color='success' />} label={city} />
+          ))
+          }
+       </FormGroup>
+        </div>
+ }
+ {selection ==2 &&
+<div className='px-3 py-2'>
+<FormControl required>
+          <RadioGroup name="work_time" aria-label='job_time' column>
+              <FormControlLabel control={<Radio size='small'/>} label="500-700" value="500-700"/>
+              <FormControlLabel control={<Radio size='small'/>} label="700-1000" value="700-100"/>
+              <FormControlLabel control={<Radio size='small'/>} label="1000-1200" value="1000-1200"/>
+              <FormControlLabel control={<Radio size='small'/>} label="1200+" value="1200+"/>
+          </RadioGroup>
+      </FormControl>
+      </div>
+ }
+ {
+  selection ==3 &&
+  <div className='px-3 py-2'>
+  <FormControl required>
+            <RadioGroup name="work_time" aria-label='job_time' column>
+                <FormControlLabel control={<Radio size='small'/>} label="Day" value="Day"/>
+                <FormControlLabel control={<Radio size='small'/>} label="Night" value="Night"/>
+                <FormControlLabel control={<Radio size='small'/>} label="Both" value="Both"/>
+            </RadioGroup>
+        </FormControl>
+        </div>
+ }
+ {/* <div className='px-5 flex items-start justify-center gap-2 sticky bottom-0 left-0 mt-2 bg-white py-2'>
+        <button id='int-btn' className='px-4 py-3 bg-blue-400 text-white font-semibold rounded-md w-full'>Apply</button>
+    </div> */}
        </div>
+       
     </Drawer>
       </div>
     );
